@@ -6,24 +6,52 @@ import java.util.logging.*;
 
 //import edu.bc.bean.Member;					
 import edu.bc.jdbc.ConnectionJDBC;
+import edu.bc.model.LoginModel;
 
 public class LoginDao {
 
-	public static boolean validate(String name, String pass) {
-		boolean status = false;
+	public static LoginModel validate(String name, String pass) {
+		
+		LoginModel login = new LoginModel() ;
 		Connection conn = null;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
-
+		
+		
 		try {
 			conn = ConnectionJDBC.getConnection();
 
-			pst = conn.prepareStatement("select * from user where username=? and password=?");
-			pst.setString(1, name);
-			pst.setString(2, pass);
+			pst = conn.prepareStatement("select u.user_id, "
+	   				 + "u.username, "
+	   				 + "u.password, "
+	   				 + "m.member_id, "
+	   				 + "m.first_name, "
+	   				 + "m.last_name, "
+	   				 + "m.email, "
+	   				 + "m.mobile, "
+	   				 + "m.pesudonym "
+	   				 + "from user u inner join member m "
+	   				 + "on u.user_id = m.user_id "
+	   				 + "where u.username=? and u.password=? ");
+	   		 pst.setString(1, name);
+	   		 pst.setString(2, pass);
+
+
+
 
 			rs = pst.executeQuery();
-			status = rs.next();
+			while( rs.next()){
+	               	login.setUser_id(rs.getInt("user_id"));
+	               	login.setMember_id(rs.getInt("member_id"));
+	               	login.setUsername(rs.getString("username"));
+	               	login.setPassword(rs.getString("password"));
+	               	login.setFirst_name(rs.getString("first_name"));
+	               	login.setLast_name(rs.getString("last_name"));
+	               	login.setEmail(rs.getString("email"));
+	               	login.setMobile(rs.getString("mobile"));
+	               	login.setPesudonym(rs.getString("pesudonym"));
+			}
+	           return login;
 
 		} catch (Exception e) {
 			System.out.println(e);
@@ -50,6 +78,6 @@ public class LoginDao {
 				}
 			}
 		}
-		return status;
+		return login;
 	}
 }

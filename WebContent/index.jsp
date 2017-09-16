@@ -11,6 +11,7 @@
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
 </head>
 <body>
+
 <style>
     .loading {
         background: lightgoldenrodyellow url('{{asset('images/processing.gif')}}') no-repeat center 65%;
@@ -109,7 +110,7 @@
              <div class="row">
             <div class="col-md-4">
                 <h2>Action</h2>                
-                <li><a name="1" href="javascript:ajaxLoad('storyact.html')">Action1</a></li>
+                <li><a name="1" href="javascript:ajaxLoad('#')">Action1</a></li>
                 <li><a name="2" href="javascript:ajaxLoad('#')">Action2</a></li>
                 <li><a name="3"  href="javascript:ajaxLoad('#')">Action3</a></li>
                 <li><a name="4" href="javascript:ajaxLoad('#')">Action4</a></li>
