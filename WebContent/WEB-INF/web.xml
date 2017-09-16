@@ -24,6 +24,18 @@
 		<servlet-name>logout</servlet-name>
 		<url-pattern>/LogoutServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>register</servlet-name>
+		<servlet-class>edu.bc.servlet.RegisterServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>register</servlet-name>
+		<url-pattern>/RegisterServlet</url-pattern>
+	</servlet-mapping>
+
+
 
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>

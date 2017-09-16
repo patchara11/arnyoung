@@ -47,7 +47,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i
 							class="fa fa-pencil-square-o " aria-hidden="true"></i></span> <input
-							type="password" class="form-control" name="last_name"
+							type="text" class="form-control" name="last_name"
 							id="Last name" placeholder="Enter your last_name" />
 					</div>
 				</div>
@@ -82,7 +82,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock fa-lg"
 							aria-hidden="true"></i></span> <input type="Pesudonym"
-							class="form-control" name="Pesudonym" id="Pesudonym"
+							class="form-control" name="pesudonym" id="pesudonym"
 							placeholder="Enter your Pesudonym" />
 					</div>
 				</div>

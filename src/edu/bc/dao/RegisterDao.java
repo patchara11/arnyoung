@@ -4,6 +4,8 @@ import java.io.*;
 import java.sql.*;
 import java.util.logging.*;
 
+import com.sun.javafx.binding.StringFormatter;
+
 //import edu.bc.bean.Member;					
 import edu.bc.jdbc.ConnectionJDBC;
 import edu.bc.model.LoginModel;
@@ -13,24 +15,24 @@ public class RegisterDao {
 	public static boolean validate(LoginModel register) {
 		boolean ret = false;
 		Connection conn = null;
-		PreparedStatement pstUser = null;
+		String strUser = "";
 		PreparedStatement pstMember = null;
 		ResultSet rs = null;
-		long userId = 0;
+		int userId = 0;
+		
 
 		try {
 			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			strUser = "insert into user(username, password) values('"+register.getUsername()+"', '"+register.getPassword()+"')";
+			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 
-			pstUser = conn.prepareStatement("insert into user(username, password) values(?, ?)");
-			pstUser.setString(1, register.getUsername());
-			pstUser.setString(2, register.getPassword());
-
-			rs = pstUser.executeQuery();
+			rs = stmt.getGeneratedKeys();
 			while (rs.next()) {
-				userId = rs.getLong(1);
+				userId = rs.getInt(1);
 			}
 			
-			pstMember = conn.prepareStatement("insert into member(first_name, last_name, email, mobile, pesudonym) values(?, ?, ?, ?, ?, ?, ?)");
+			pstMember = conn.prepareStatement("insert into member(first_name, last_name, email, mobile, pesudonym, user_id) values(?, ?, ?, ?, ?, ?)");
 			pstMember.setString(1, register.getFirst_name());
 			pstMember.setString(2, register.getLast_name());
 			pstMember.setString(3, register.getEmail());
@@ -38,7 +40,7 @@ public class RegisterDao {
 			pstMember.setString(5, register.getPesudonym());
 			pstMember.setLong(6, userId);
 			
-			rs = pstMember.executeQuery();
+			pstMember.executeUpdate();
 
 			ret = true;
 		} catch (Exception e) {
@@ -51,9 +53,8 @@ public class RegisterDao {
 					e.printStackTrace();
 				}
 			}
-			if (pstUser != null || pstMember != null) {
+			if (pstMember != null) {
 				try {
-					pstUser.close();
 					pstMember.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
