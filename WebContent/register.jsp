@@ -23,7 +23,7 @@
 				<div class="cols-sm-10">
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock fa-lg"
-							aria-hidden="true"></i></span> <input type="text" class="form-control"
+							aria-hidden="true"></i></span> <input type="password" class="form-control"
 							name="password" id="password" placeholder="Enter your password" />
 					</div>
 				</div>
@@ -80,7 +80,7 @@
 				<label for="Pesudonym" class="cols-sm-2 control-label">Pesudonym</label>
 				<div class="cols-sm-10">
 					<div class="input-group">
-						<span class="input-group-addon"><i class="fa fa-lock fa-lg"
+						<span class="input-group-addon"><i class="fa fa-pencil"
 							aria-hidden="true"></i></span> <input type="Pesudonym"
 							class="form-control" name="pesudonym" id="pesudonym"
 							placeholder="Enter your Pesudonym" />

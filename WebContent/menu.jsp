@@ -17,7 +17,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsp">ARNYOUNG</a>
+			<a class="navbar-brand" href="index.jsp" style="color: orange;">ARNYOUNG</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"
@@ -35,7 +35,7 @@
 
 				<li id="liLogout"><a name="menuLogout" href="#"
 					onclick="Logout()">Logout</a></li>
-				<li id="liWriting"><a href="#">Dream Writing</a></li>
+				<li id="liWriting"><a href="${pageContext.request.contextPath}/storyheader">Dream Writing</a></li>
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> Style <b class="caret"></b>
 				</a>
@@ -148,6 +148,7 @@
 		      data:'',
 		      success : function(data){
 		          alert('Logout success');
+		          window.location.href="index.jsp";
 		      }
 		    });
 
