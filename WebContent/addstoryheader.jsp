@@ -1,9 +1,9 @@
 <div class="col-md-2"></div>
 <div class="col-md-8">
 	<div class="main-login main-center">
-		<h5>Sign up once and watch any of our free demos.</h5>
+		<h5>Add your story header below.</h5>
 		<form class="" method="post" action="AddStoryHeaderServlet"
-			enctype="multipart/form-data">
+			enctype="multipart/form-data" accept-charset="UTF-8">
 
 			<div class="form-group">
 				<label for="name" class="cols-sm-2 control-label"> Your

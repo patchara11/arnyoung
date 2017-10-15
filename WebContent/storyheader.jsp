@@ -25,7 +25,8 @@
 						Story of <span style="color: orange">${username}</span>
 					</h2>
 					<p style="color: red;">${errorString}</p>
-					<table class="table table-striped">
+					<table class="table table-striped" id="tableStoryHeader"
+						name="tableStoryHeader">
 						<thead>
 							<tr>
 								<th class="text-center">No.</th>
@@ -43,9 +44,11 @@
 									<td hidden="hidden">${story_h.story_header_id}</td>
 									<td><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
-												style="width: 80px;">Edit</button>
+												style="width: 80px;"
+												onclick="EditSH(${story_h.story_header_id})">Edit</button>
 											<button type="button" class="btn btn-danger"
-												style="width: 80px;" onclick="ConfirmDelSH(${story_h.story_header_id})">Delete</button>
+												style="width: 80px;"
+												onclick="ConfirmDelSH(${story_h.story_header_id})">Delete</button>
 										</div></td>
 								</tr>
 							</c:forEach>
@@ -88,6 +91,34 @@
 		</div>
 	</div>
 
+	<div class="modal fade" id="modalEditStoryHeader" tabindex="-1"
+		role="dialog" aria-labelledby="modalEditStoryHeader">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="modalEditStoryHeader">Edit story
+						header</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-12">
+							<%@ include file="editstoryheader.jsp"%>
+
+
+						</div>
+					</div>
+				</div> 
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
 
 
 	<!-- <button class="btn btn-default" id="btn-confirm">Confirm</button> -->
@@ -118,8 +149,8 @@
 	    var storyHeaderId = 0;
 		function ConfirmDelSH(story_header_id) {		
 			storyHeaderId = story_header_id;
-			alert(storyHeaderId);
-			//$("#mi-modal").modal('show');
+			//alert(storyHeaderId);
+			$("#mi-modal").modal('show');
 		}
 		var modalConfirm = function(callback) {
 
@@ -141,12 +172,56 @@
 		modalConfirm(function(confirm) {
 			if (confirm) {
 				//Acciones si el usuario confirma
-				$("#result").html("CONFIRMADO");
+				//$("#result").html("CONFIRMADO");
+				//alert(storyHeaderId);
+				  $.ajax({
+				      url:'DeleteStoryHeaderServlet',
+				      type:'POST',
+				      data:{storyHeaderId: storyHeaderId},
+				      success : function(data){
+				     //alert('Logout success');
+				    /*       window.location.href="storyheader.jsp";  */
+				    location.reload();
+				      }
+				    });
 			} else {
 				//Acciones si el usuario no confirma
-				$("#result").html("NO CONFIRMADO");
+				//$("#result").html("NO CONFIRMADO");
 			}
 		});
+		
+		function EditSH(story_header_id) {		
+			storyHeaderId = story_header_id;
+			//alert(storyHeaderId);
+			// Get the size of an object
+			/* var model = '${StoryHeaderModel}';
+			var rows = document.getElementById("tableStoryHeader").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
+			for (var int = 0; int < rows; int++) {
+				
+			} */
+			
+			<c:forEach var="item" items="${StoryHeaderModel}" varStatus="status">
+                 //alert("${item.story_header_name}");
+                 if('${item.story_header_id}' == storyHeaderId){
+                	   /* alert("${item.story_header_name}"); */
+                	   
+                	   $("#editStoryHeaderName").val('${item.story_header_name}');
+                	   $("#editStoryHeaderContent").val('${item.story_header_content}');
+                	   var img = '${item.story_header_img}';
+                	   document.getElementById("imgSH").src = "http://localhost:8080/arnyoung/images/"+img;
+                	   $("#editStoryHeaderId").val(storyHeaderId)
+                 }
+             </c:forEach>
+			$("#modalEditStoryHeader").modal('show');
+		}
+		
+		function encode_utf8(s) {
+			  return unescape(encodeURIComponent(s));
+			}
+
+			function decode_utf8(s) {
+			  return decodeURIComponent(escape(s));
+			}
 	</script>
 
 </body>

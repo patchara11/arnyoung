@@ -27,7 +27,7 @@ import org.apache.commons.io.output.*;
 import edu.bc.dao.StoryHeaderDao;
 import edu.bc.model.StoryHeaderModel;
 
-public class AddStoryHeaderServlet extends HttpServlet {
+public class EditStoryHeaderServlet extends HttpServlet {
 
 	private boolean isMultipart;
 	private String filePath;
@@ -43,6 +43,10 @@ public class AddStoryHeaderServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		response.setCharacterEncoding("UTF-8");
+		
 		StoryHeaderModel storyheadermodel = new StoryHeaderModel();
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
@@ -119,14 +123,17 @@ public class AddStoryHeaderServlet extends HttpServlet {
 					String name = fi.getFieldName();
 					String value = fi.getString();
 					switch (name) {
-					case "storyHeaderName":
+					case "editStoryHeaderName":
 						String encValue1 = new String(value.getBytes("ISO8859_1"),"UTF-8");
 						storyheadermodel.setStory_header_name(encValue1);
 						break;
-					case "storyHeaderContent":
+					case "editStoryHeaderContent":
 						String encValue2 = new String(value.getBytes("ISO8859_1"),"UTF-8");
 						storyheadermodel.setStory_header_content(encValue2);
-						break;
+						break;	
+					case "editStoryHeaderId":
+						storyheadermodel.setStory_header_id(Integer.parseInt(value));
+						break;	
 					default:
 						break;
 					}
@@ -153,7 +160,7 @@ public class AddStoryHeaderServlet extends HttpServlet {
 		storyheadermodel.setMember_id(member_id);
 		storyheadermodel.setStory_header_img(fileName);
 
-		if (StoryHeaderDao.InsertStoryHeader(storyheadermodel)) {
+		if (StoryHeaderDao.UpdateStoryHeader(storyheadermodel)) {
 			// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
 			// rd.forward(request, response);
 

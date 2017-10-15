@@ -2,7 +2,7 @@
 <div class="col-md-8">
 	<div class="main-login main-center">
 		<h5>Sign up once and watch any of our free demos.</h5>
-		<form class="" method="post" action="RegisterServlet">
+		<form class="" method="post" action="RegisterServlet" accept-charset="UTF-8">
 
 			<div class="form-group">
 				<label for="name" class="cols-sm-2 control-label">Your

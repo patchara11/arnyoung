@@ -107,5 +107,95 @@ public class StoryHeaderDao {
 		}
 		return ret;
 	}
+	
+	public static boolean UpdateStoryHeader(StoryHeaderModel storyheadermodel) {
+		boolean ret = false;
+		Connection conn = null;
+		String strUser = "";
+		PreparedStatement pstMember = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			if(storyheadermodel.getStory_header_img() != null && !"".equals(storyheadermodel.getStory_header_img())) {
+				strUser = "update story_header set story_header_name = '"+storyheadermodel.getStory_header_name()+"', story_header_content = '"+storyheadermodel.getStory_header_content()+"', "
+						+ "story_header_img = '"+storyheadermodel.getStory_header_img()+"' "
+						+ "where story_header_id = "+storyheadermodel.getStory_header_id();
+			}else {
+				strUser = "update story_header set story_header_name = '"+storyheadermodel.getStory_header_name()+"', story_header_content = '"+storyheadermodel.getStory_header_content()+"' "
+						+ "where story_header_id = "+storyheadermodel.getStory_header_id();
+			}
+			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
+			ret = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstMember != null) {
+				try {
+					pstMember.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
+	
+	public static boolean DeleteStoryHeader(String id) {
+		boolean ret = false;
+		Connection conn = null;
+		String strUser = "";
+		PreparedStatement pstMember = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			strUser = "delete from story_header where story_header_id = "+id;
+			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
+			ret = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstMember != null) {
+				try {
+					pstMember.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
+	
 
 }

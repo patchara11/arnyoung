@@ -6,7 +6,7 @@ public class StoryHeaderModel {
 	int member_id;
 	String story_header_name;
 	String story_header_content;
-	String Story_header_img;
+	String story_header_img;
 
 	public int getStory_header_id() {
 		return story_header_id;
@@ -41,11 +41,11 @@ public class StoryHeaderModel {
 	}
 
 	public String getStory_header_img() {
-		return Story_header_img;
+		return story_header_img;
 	}
 
 	public void setStory_header_img(String story_header_img) {
-		Story_header_img = story_header_img;
+		this.story_header_img = story_header_img;
 	}
 
 }

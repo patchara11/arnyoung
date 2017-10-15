@@ -21,11 +21,13 @@ public class RegisterServlet extends HttpServlet {
 		LoginModel register = new LoginModel() ;
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-
-		
-		register.setUsername(request.getParameter("username"));
+				
+		register.setUsername(request.getParameter("username"));		
 		register.setPassword(request.getParameter("password"));
-		register.setFirst_name(request.getParameter("first_name"));
+		
+		String first_name = new String(request.getParameter("first_name").getBytes("ISO8859_1"),"UTF-8");
+		register.setFirst_name(first_name);
+		
 		register.setLast_name(request.getParameter("last_name"));
 		register.setEmail(request.getParameter("email"));
 		register.setMobile(request.getParameter("mobile"));
