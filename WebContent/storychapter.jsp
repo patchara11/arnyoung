@@ -22,34 +22,54 @@
 
 				<div class="container">
 					<h2>
-						Story of <span style="color: orange">${username}</span>
+						Story of <span style="color: orange">${storyname}</span>
 					</h2>
+
+					<div class="form-group text-center">
+						<div class="cols-sm-12">
+							<img id="imgSH" name="imgSH"
+								src="http://localhost:8080/arnyoung/images/${storyimg}"
+								atl="Mountain View" class="text-center"
+								style="width: 200px; height: 200px;">
+						</div>
+						<br>
+					</div>
+
+					<div class="form-group">
+						<label for="name" class="cols-sm-2 control-label">Story header content.</label>
+						<div class="cols-sm-12">
+							<label name="storyHeaderContent"
+								id="storyHeaderContent" style="color: gray">${storycontent}</label>
+						</div>
+					</div>
+
 					<p style="color: red;">${errorString}</p>
 					<table class="table table-striped" id="tableStoryHeader"
 						name="tableStoryHeader">
 						<thead>
 							<tr>
-								<th class="text-center">No.</th>
-								<th>Story name</th>
+								<th class="text-center">Act</th>
+								<th>Chapter name</th>
+								<th>Price</th>
 								<th hidden="hidden"></th>
 								<th class="btn-group pull-right">Edit & Delete</th>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach items="${StoryHeaderModel}" var="story_h"
+							<c:forEach items="${StoryChapterModel}" var="story_h"
 								varStatus="count">
 								<tr>
 									<td class="text-center">${count.count}</td>
 									<td><a herf="#"
-										onclick="LinkSCHAP(${story_h.story_header_id})">${story_h.story_header_name}</a></td>
-									<td hidden="hidden">${story_h.story_header_id}</td>
+										onclick="LinkSCHAP(${story_h.story_detail_id})">${story_h.story_detail_act}</a></td>
+									<td>${story_h.story_header_price}</td>
 									<td><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
 												style="width: 80px;"
-												onclick="EditSH(${story_h.story_header_id})">Edit</button>
+												onclick="EditSH(${story_h.story_detail_id})">Edit</button>
 											<button type="button" class="btn btn-danger"
 												style="width: 80px;"
-												onclick="ConfirmDelSH(${story_h.story_header_id})">Delete</button>
+												onclick="ConfirmDelSH(${story_h.story_detail_id})">Delete</button>
 										</div></td>
 								</tr>
 							</c:forEach>
@@ -147,6 +167,22 @@
 	<div class="alert" role="alert" id="result"></div>
 
 	<script type="text/javascript">
+/* 		$(document).ready(function(){
+		   var story_header_id = $("#story_header_id").val();
+		   //alert(aa);
+		   $.ajax({
+		      url:'storychapter',
+		      type:'POST',
+		      data:{storyHeaderId: story_header_id},
+		      success : function(data){
+		     //alert('Logout success');
+		     // window.location = data.url; 
+		    //location.reload();
+		      }
+		    });  
+
+		}); */
+	
 	    var storyHeaderId = 0;
 		function ConfirmDelSH(story_header_id) {		
 			storyHeaderId = story_header_id;
@@ -201,7 +237,7 @@
 				
 			} */
 			
-			<c:forEach var="item" items="${StoryHeaderModel}" varStatus="status">
+			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
                  //alert("${item.story_header_name}");
                  if('${item.story_header_id}' == storyHeaderId){
                 	   /* alert("${item.story_header_name}"); */
@@ -230,26 +266,16 @@
 		
 		function LinkSCHAP(story_header_id) {		
 			storyHeaderId = story_header_id;
-			
-			sessionStorage.setItem("storyHeaderId", storyHeaderId);
-			
-			//sessionStorage.story_header_id = storyHeaderId;
-			//alert(sessionStorage.story_header_id);
-			
-			 $.ajax({
-			      url:'storyheaderid',
+			$.ajax({
+			      url:'StoryChapterServlet',
 			      type:'POST',
 			      data:{storyHeaderId: storyHeaderId},
 			      success : function(data){
-			    	  window.location.href="storychapter"; 
 			     //alert('Logout success');
-			     // window.location = data.url; 
-			    //location.reload();
+			    /*       window.location.href="storyheader.jsp";  */
+			    location.reload();
 			      }
-			    });  
-			    
-			 
-			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId;
+			    });
 		}
 		
 		function encode_utf8(s) {

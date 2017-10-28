@@ -134,6 +134,15 @@ public class EditStoryHeaderServlet extends HttpServlet {
 					case "editStoryHeaderId":
 						storyheadermodel.setStory_header_id(Integer.parseInt(value));
 						break;	
+					case "editStoryChapterPrice":
+						String encValue3 = new String(value.getBytes("ISO8859_1"),"UTF-8");
+						if("Free".equals(encValue3)) {
+							storyheadermodel.setStory_header_price(0.00);
+						}else {
+							double price = Double.parseDouble(encValue3);
+							storyheadermodel.setStory_header_price(price);
+						}						
+						break;
 					default:
 						break;
 					}

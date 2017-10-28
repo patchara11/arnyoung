@@ -42,6 +42,19 @@
 						id="editStoryHeaderId" required="required" />
 				</div>
 			</div>
+			
+			<div class="form-group">
+				<label for="name" class="cols-md-2 control-label"> Your
+					Your price every chapter.</label>
+				<div class="cols-md-12">
+					<select class="selectpicker" id="editStoryChapterPrice" name="editStoryChapterPrice">
+						<option>Free</option>
+						<option>5.00</option>
+						<option>10.00</option>
+					</select>
+					<label class="control-label">Baht</label>
+				</div>
+			</div>
 
 			<div class="form-group">
 				<label for="name" class="cols-sm-2 control-label"> Edit your

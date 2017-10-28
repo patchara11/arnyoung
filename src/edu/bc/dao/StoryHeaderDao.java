@@ -8,6 +8,7 @@ import java.util.logging.*;
 
 //import edu.bc.bean.Member;					
 import edu.bc.jdbc.ConnectionJDBC;
+import edu.bc.model.StoryChapterModel;
 import edu.bc.model.StoryHeaderModel;
 
 public class StoryHeaderDao {
@@ -33,6 +34,7 @@ public class StoryHeaderDao {
 				tmp.setStory_header_id(rs.getInt("story_header_id"));
 				tmp.setStory_header_img(rs.getString("story_header_img"));
 				tmp.setStory_header_name(rs.getString("story_header_name"));
+				tmp.setStory_header_price(rs.getDouble("story_header_price"));
 
 				storyheadermodel.add(tmp);
 			}
@@ -66,6 +68,73 @@ public class StoryHeaderDao {
 		return storyheadermodel;
 	}
 
+	public static List<StoryChapterModel> QueryStoryChapter(String storyHeaderId) {
+
+		List<StoryChapterModel> storyChapterModel = new ArrayList<StoryChapterModel>();
+		Connection conn = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+
+			pst = conn.prepareStatement("SELECT d.story_header_id, "
+					+ "h.story_header_name, "
+					+ "h.story_header_content, "
+					+ "h.story_header_img, "
+					+ "h.story_header_price, "
+					+ "d.story_detail_act, "
+					+ "d.story_detail_id, "
+					+ "d.story_detail_content "
+					+ "FROM story_detail d left outer join story_header h on d.story_header_id = h.story_header_id "
+					+ "WHERE d.story_header_id = ? "
+					+ "order by d.story_detail_id");
+			pst.setInt(1, Integer.parseInt(storyHeaderId));
+
+			rs = pst.executeQuery();
+			while (rs.next()) {
+				StoryChapterModel tmp = new StoryChapterModel();
+				tmp.setStory_header_id(rs.getInt("story_header_id"));
+				tmp.setStory_header_name(rs.getString("story_header_name"));
+				tmp.setStory_header_content(rs.getString("story_header_content"));
+				tmp.setStory_header_img(rs.getString("story_header_img"));
+				tmp.setStory_header_price(rs.getDouble("story_header_price"));
+				tmp.setStory_detail_act(rs.getString("story_detail_act"));
+				tmp.setStory_detail_id(rs.getInt("story_detail_id"));
+				tmp.setStory_detail_content(rs.getString("story_detail_content"));
+
+				storyChapterModel.add(tmp);
+			}
+			return storyChapterModel;
+
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pst != null) {
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return storyChapterModel;
+	}
+	
 	public static boolean InsertStoryHeader(StoryHeaderModel storyheadermodel) {
 		boolean ret = false;
 		Connection conn = null;
@@ -76,8 +145,8 @@ public class StoryHeaderDao {
 		try {
 			conn = ConnectionJDBC.getConnection();
 			Statement stmt = conn.createStatement();
-			strUser = "insert into story_header(story_header_name, story_header_content, story_header_img, member_id) values('" + storyheadermodel.getStory_header_name() + "', '"
-					+ storyheadermodel.getStory_header_content() + "', '" + storyheadermodel.getStory_header_img() + "', " + storyheadermodel.getMember_id() + ")";
+			strUser = "insert into story_header(story_header_name, story_header_content, story_header_img, story_header_price, member_id) values('" + storyheadermodel.getStory_header_name() + "', '"
+					+ storyheadermodel.getStory_header_content() + "', '" + storyheadermodel.getStory_header_img() + "', " + storyheadermodel.getStory_header_price() + ", " + storyheadermodel.getMember_id() + ")";
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 			ret = true;
 		} catch (Exception e) {
@@ -120,10 +189,14 @@ public class StoryHeaderDao {
 			Statement stmt = conn.createStatement();
 			if(storyheadermodel.getStory_header_img() != null && !"".equals(storyheadermodel.getStory_header_img())) {
 				strUser = "update story_header set story_header_name = '"+storyheadermodel.getStory_header_name()+"', story_header_content = '"+storyheadermodel.getStory_header_content()+"', "
-						+ "story_header_img = '"+storyheadermodel.getStory_header_img()+"' "
+						+ "story_header_img = '"+storyheadermodel.getStory_header_img()+"' , "
+						+ "story_header_price = " + storyheadermodel.getStory_header_price()
+						+ " "
 						+ "where story_header_id = "+storyheadermodel.getStory_header_id();
 			}else {
-				strUser = "update story_header set story_header_name = '"+storyheadermodel.getStory_header_name()+"', story_header_content = '"+storyheadermodel.getStory_header_content()+"' "
+				strUser = "update story_header set story_header_name = '"+storyheadermodel.getStory_header_name()+"', story_header_content = '"+storyheadermodel.getStory_header_content()+"' , "
+						+ "story_header_price = " + storyheadermodel.getStory_header_price()
+						+ " "
 						+ "where story_header_id = "+storyheadermodel.getStory_header_id();
 			}
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
@@ -159,15 +232,21 @@ public class StoryHeaderDao {
 	public static boolean DeleteStoryHeader(String id) {
 		boolean ret = false;
 		Connection conn = null;
-		String strUser = "";
+		String strSHSQL = "";
+		String strSDSQL = "";
 		PreparedStatement pstMember = null;
 		ResultSet rs = null;
 
 		try {
 			conn = ConnectionJDBC.getConnection();
 			Statement stmt = conn.createStatement();
-			strUser = "delete from story_header where story_header_id = "+id;
-			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
+			
+			strSHSQL = "delete from story_header where story_header_id = "+id;
+			stmt.executeUpdate(strSHSQL, Statement.RETURN_GENERATED_KEYS);
+			
+			strSDSQL = "delete from story_detail where story_header_id = "+id;
+			stmt.executeUpdate(strSDSQL, Statement.RETURN_GENERATED_KEYS);
+			
 			ret = true;
 		} catch (Exception e) {
 			System.out.println(e);

@@ -47,9 +47,10 @@ public class AddStoryHeaderServlet extends HttpServlet {
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		HttpSession session = request.getSession(true);
-
+		request.setCharacterEncoding("utf-8");
 		int member_id = (int) session.getAttribute("member_id");
 		String fileName = "";
+		String storyChapterPrice = "0.00";
 
 		// Check that we have a file upload request
 		isMultipart = ServletFileUpload.isMultipartContent(request);
@@ -126,6 +127,15 @@ public class AddStoryHeaderServlet extends HttpServlet {
 					case "storyHeaderContent":
 						String encValue2 = new String(value.getBytes("ISO8859_1"),"UTF-8");
 						storyheadermodel.setStory_header_content(encValue2);
+						break;
+					case "storyChapterPrice":
+						String encValue3 = new String(value.getBytes("ISO8859_1"),"UTF-8");
+						if("Free".equals(encValue3)) {
+							storyheadermodel.setStory_header_price(0.00);
+						}else {
+							double price = Double.parseDouble(encValue3);
+							storyheadermodel.setStory_header_price(price);
+						}						
 						break;
 					default:
 						break;
