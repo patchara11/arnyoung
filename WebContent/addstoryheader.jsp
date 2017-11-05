@@ -30,7 +30,7 @@
 
 
 			<div class="form-group">
-				<label for="name" class="cols-md-2 control-label"> Your
+				<label for="name" class="cols-md-2 control-label">
 					Your price every chapter.</label>
 				<div class="cols-md-12">
 					<select class="selectpicker" id="storyChapterPrice" name="storyChapterPrice">

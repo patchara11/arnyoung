@@ -24,7 +24,7 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.output.*;
 
-import edu.bc.dao.StoryHeaderDao;
+import edu.bc.dao.StoryDao;
 import edu.bc.model.StoryHeaderModel;
 
 public class EditStoryHeaderServlet extends HttpServlet {
@@ -169,7 +169,7 @@ public class EditStoryHeaderServlet extends HttpServlet {
 		storyheadermodel.setMember_id(member_id);
 		storyheadermodel.setStory_header_img(fileName);
 
-		if (StoryHeaderDao.UpdateStoryHeader(storyheadermodel)) {
+		if (StoryDao.UpdateStoryHeader(storyheadermodel)) {
 			// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
 			// rd.forward(request, response);
 

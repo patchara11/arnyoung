@@ -36,10 +36,11 @@
 					</div>
 
 					<div class="form-group">
-						<label for="name" class="cols-sm-2 control-label">Story header content.</label>
+						<label for="name" class="cols-sm-2 control-label">Story
+							header content.</label>
 						<div class="cols-sm-12">
-							<label name="storyHeaderContent"
-								id="storyHeaderContent" style="color: gray">${storycontent}</label>
+							<label name="storyHeaderContent" id="storyHeaderContent"
+								style="color: gray">${storycontent}</label>
 						</div>
 					</div>
 
@@ -76,8 +77,7 @@
 						</tbody>
 					</table>
 					<button type="button" class="btn btn-success pull-right"
-						style="width: 80px;" data-toggle="modal"
-						data-target="#modalAddStoryHeader">Add</button>
+						style="width: 80px;" onclick="Add()" >Add</button>
 				</div>
 			</div>
 		</div>
@@ -85,7 +85,7 @@
 
 	<div class="modal fade" id="modalAddStoryHeader" tabindex="-1"
 		role="dialog" aria-labelledby="modalAddStoryHeader">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" role="document" style="width: 90%;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
@@ -98,36 +98,7 @@
 				<div class="modal-body">
 					<div class="row">
 						<div class="col-md-12">
-							<%@ include file="addstoryheader.jsp"%>
-
-
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="modalEditStoryHeader" tabindex="-1"
-		role="dialog" aria-labelledby="modalEditStoryHeader">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="modalEditStoryHeader">Edit story
-						header</h4>
-				</div>
-				<div class="modal-body">
-					<div class="row">
-						<div class="col-md-12">
-							<%@ include file="editstoryheader.jsp"%>
+							<%@ include file="addstorychapter.jsp"%>
 
 
 						</div>
@@ -184,8 +155,8 @@
 		}); */
 	
 	    var storyHeaderId = 0;
-		function ConfirmDelSH(story_header_id) {		
-			storyHeaderId = story_header_id;
+		function ConfirmDelSH(story_detail_id) {		
+			storyDetailId = story_detail_id;
 			//alert(storyHeaderId);
 			$("#mi-modal").modal('show');
 		}
@@ -212,9 +183,9 @@
 				//$("#result").html("CONFIRMADO");
 				//alert(storyHeaderId);
 				  $.ajax({
-				      url:'DeleteStoryHeaderServlet',
+				      url:'DeleteStoryChapterServlet',
 				      type:'POST',
-				      data:{storyHeaderId: storyHeaderId},
+				      data:{storyDetailId: storyDetailId},
 				      success : function(data){
 				     //alert('Logout success');
 				    /*       window.location.href="storyheader.jsp";  */
@@ -227,9 +198,32 @@
 			}
 		});
 		
-		function EditSH(story_header_id) {		
-			storyHeaderId = story_header_id;
-			//alert(storyHeaderId);
+		function Add(){
+			 $("#storyActName").val("");
+      	     CKEDITOR.instances['editor1'].setData("")
+      	    $("#modalAddStoryHeader").modal('show');
+		}
+		
+		function AddData(){
+			//debugger;
+			var txt = CKEDITOR.instances['editor1'].getData();
+			$("#txt").val(txt);
+			//alert($("#txt").val());
+			
+			 $.ajax({
+			      url:'AddStoryChapterServlet',
+			      contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			      type:'POST',
+			      data:{storyActName: $("#storyActName").val(), editor1:  $("#txt").val()},
+			      success : function(data){
+			    location.reload();
+			      }
+			    }); 
+		}
+		
+		function EditSH(story_detail_id) {		
+			storyDetailId = story_detail_id;
+			//alert(storyDetailId);
 			// Get the size of an object
 			/* var model = '${StoryHeaderModel}';
 			var rows = document.getElementById("tableStoryHeader").getElementsByTagName("tbody")[0].getElementsByTagName("tr").length;
@@ -239,29 +233,18 @@
 			
 			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
                  //alert("${item.story_header_name}");
-                 if('${item.story_header_id}' == storyHeaderId){
-                	   /* alert("${item.story_header_name}"); */
+                 if('${item.story_detail_id}' == storyDetailId){
+                	   // alert("${item.story_detail_act}"); 
                 	   
-                	   $("#editStoryHeaderName").val('${item.story_header_name}');
-                	   $("#editStoryHeaderContent").val('${item.story_header_content}');
-                	   var img = '${item.story_header_img}';
-                	   document.getElementById("imgSH").src = "http://localhost:8080/arnyoung/images/"+img;
-                	   $("#editStoryHeaderId").val(storyHeaderId)
+                	   $("#storyActName").val('${item.story_detail_act}');
+                	   /* $("#editor1").val(''); */
+                	   //CKEDITOR.instances['editor1'].setData("aaa");
+                	   CKEDITOR.instances['editor1'].setData('${item.story_detail_content}')
+                	   /* $("#editor1").html('${item.story_detail_content}'); */
                 	   
-                	   if('${item.story_header_price}' == 0.00){
-                		   $("#editStoryChapterPrice").val("Free");
-                	   }else{
-                		   $("#editStoryChapterPrice").val(parseFloat('${item.story_header_price}').toFixed(2));
-                		   //alert(strPrice);
-                		  // alert('${item.story_header_price}');
-                	   }
-                	  
-                	   
-                	   
-                	  
                  }
              </c:forEach>
-			$("#modalEditStoryHeader").modal('show');
+			$("#modalAddStoryHeader").modal('show');
 		}
 		
 		function LinkSCHAP(story_header_id) {		

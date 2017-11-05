@@ -84,7 +84,7 @@
 		<servlet-name>editstoryheader</servlet-name>
 		<url-pattern>/EditStoryHeaderServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>storychapterservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.StoryChapterServlet</servlet-class>
@@ -94,7 +94,7 @@
 		<servlet-name>storychapterservlet</servlet-name>
 		<url-pattern>/StoryChapterServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>storyheaderidservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.StoryHeaderIdServlet</servlet-class>
@@ -103,6 +103,26 @@
 	<servlet-mapping>
 		<servlet-name>storyheaderidservlet</servlet-name>
 		<url-pattern>/StoryHeaderIdServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>deletestorychapterservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.DeleteStoryChapterServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>deletestorychapterservlet</servlet-name>
+		<url-pattern>/DeleteStoryChapterServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>addstorychapterservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.AddStoryChapterServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>addstorychapterservlet</servlet-name>
+		<url-pattern>/AddStoryChapterServlet</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>

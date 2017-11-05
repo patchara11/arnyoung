@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import edu.bc.dao.LoginDao;
 import edu.bc.dao.StoryDao;
 
-public class DeleteStoryHeaderServlet extends HttpServlet {
+public class DeleteStoryChapterServlet extends HttpServlet {
 
 		private static final long serialVersionUID = 1L;
 
@@ -21,15 +21,15 @@ public class DeleteStoryHeaderServlet extends HttpServlet {
 			
 			PrintWriter out = response.getWriter();
 
-			String id = request.getParameter("storyHeaderId");			
-			boolean status = StoryDao.DeleteStoryHeader(id);
+			String id = request.getParameter("storyDetailId");			
+			boolean status = StoryDao.DeleteStoryDetail(id);
 			if (status) {				
-				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/storyheader");
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/storychapter");
 				return;
 			} else {
 				out.print("<p style=\"color:red\">Delete Story Header error</p>");
 
-				RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
+				RequestDispatcher rd = request.getRequestDispatcher("storychapter.jsp");
 				rd.include(request, response);
 			}
 

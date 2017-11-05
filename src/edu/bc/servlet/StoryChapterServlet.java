@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import edu.bc.model.StoryChapterModel;
 import edu.bc.model.StoryHeaderModel;
-import edu.bc.dao.StoryHeaderDao;
+import edu.bc.dao.StoryDao;
 
 @WebServlet(urlPatterns = { "/storychapter" })
 public class StoryChapterServlet extends HttpServlet {
@@ -37,7 +37,7 @@ public class StoryChapterServlet extends HttpServlet {
 		//int story_header_id = Integer.parseInt(request.getParameter("storyHeaderId"));
 		String storyHeaderId = (String)session.getAttribute("storyHeaderId");
 		
-		list = StoryHeaderDao.QueryStoryChapter(storyHeaderId);
+		list = StoryDao.QueryStoryChapter(storyHeaderId);
 		// Store info in request attribute, before forward to views
 
 		if(list.size() > 0) {

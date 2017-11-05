@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import edu.bc.model.StoryHeaderModel;
-import edu.bc.dao.StoryHeaderDao;
+import edu.bc.dao.StoryDao;
 
 @WebServlet(urlPatterns = { "/storyheader" })
 public class StoryHeaderServlet extends HttpServlet {
@@ -35,7 +35,7 @@ public class StoryHeaderServlet extends HttpServlet {
 		String errorString = null;
 		List<StoryHeaderModel> list = null;
 
-		list = StoryHeaderDao.QueryStoryHeader(member_id);
+		list = StoryDao.QueryStoryHeader(member_id);
 		// Store info in request attribute, before forward to views
 
 		request.setAttribute("errorString", errorString);

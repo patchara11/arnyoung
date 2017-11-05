@@ -3,7 +3,7 @@ package edu.bc.model;
 public class StoryDetailModel {
 
 	int story_detail_id;
-	int story_detail_act;
+	String story_detail_act;
 	String story_detail_content;
 	int story_header_id;
 	double story_detail_price;
@@ -16,11 +16,11 @@ public class StoryDetailModel {
 		this.story_detail_id = story_detail_id;
 	}
 
-	public int getStory_detail_act() {
+	public String getStory_detail_act() {
 		return story_detail_act;
 	}
 
-	public void setStory_detail_act(int story_detail_act) {
+	public void setStory_detail_act(String story_detail_act) {
 		this.story_detail_act = story_detail_act;
 	}
 

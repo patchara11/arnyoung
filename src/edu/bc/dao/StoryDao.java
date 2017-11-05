@@ -9,9 +9,10 @@ import java.util.logging.*;
 //import edu.bc.bean.Member;					
 import edu.bc.jdbc.ConnectionJDBC;
 import edu.bc.model.StoryChapterModel;
+import edu.bc.model.StoryDetailModel;
 import edu.bc.model.StoryHeaderModel;
 
-public class StoryHeaderDao {
+public class StoryDao {
 
 	public static List<StoryHeaderModel> QueryStoryHeader(int member_id) {
 
@@ -101,7 +102,7 @@ public class StoryHeaderDao {
 				tmp.setStory_header_price(rs.getDouble("story_header_price"));
 				tmp.setStory_detail_act(rs.getString("story_detail_act"));
 				tmp.setStory_detail_id(rs.getInt("story_detail_id"));
-				tmp.setStory_detail_content(rs.getString("story_detail_content"));
+				tmp.setStory_detail_content(rs.getString("story_detail_content").replaceAll("\n", ""));
 
 				storyChapterModel.add(tmp);
 			}
@@ -275,6 +276,93 @@ public class StoryHeaderDao {
 		}
 		return ret;
 	}
+	
+	public static boolean DeleteStoryDetail(String id) {
+		boolean ret = false;
+		Connection conn = null;
+		String strSDSQL = "";
+		PreparedStatement pstMember = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			
+			strSDSQL = "delete from story_detail where story_detail_id = "+id;
+			stmt.executeUpdate(strSDSQL, Statement.RETURN_GENERATED_KEYS);
+			
+			ret = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstMember != null) {
+				try {
+					pstMember.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
+
+	public static boolean InsertStoryDetail(StoryDetailModel storydetailmodel) {
+		boolean ret = false;
+		Connection conn = null;
+		String strUser = "";
+		PreparedStatement pstMember = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			strUser = "insert into story_detail(story_detail_act, story_detail_content, story_header_id) values('" + storydetailmodel.getStory_detail_act() + "', '"
+					+ storydetailmodel.getStory_detail_content() + "', " + storydetailmodel.getStory_header_id() + ")";
+			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
+			ret = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstMember != null) {
+				try {
+					pstMember.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
+	
+	
 	
 
 }
