@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			
-			<div class="form-group">
+			<div class="form-group" hidden="hidden">
 				<label for="name" class="cols-md-2 control-label"> Your
 					Your price every chapter.</label>
 				<div class="cols-md-12">

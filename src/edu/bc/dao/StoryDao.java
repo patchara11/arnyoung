@@ -229,6 +229,48 @@ public class StoryDao {
 		}
 		return ret;
 	}
+	//UpdateStoryDetail
+	public static boolean UpdateStoryDetail(StoryDetailModel storydetailmodel) {
+		boolean ret = false;
+		Connection conn = null;
+		String strUser = "";
+		PreparedStatement pstMember = null;
+		ResultSet rs = null;
+
+		try {
+			conn = ConnectionJDBC.getConnection();
+			Statement stmt = conn.createStatement();
+			strUser = "update story_detail set story_detail_act = '"+storydetailmodel.getStory_detail_act()+"', story_detail_content = '"
+					+ storydetailmodel.getStory_detail_content() + "' where story_detail_id = " + storydetailmodel.getStory_detail_id() + " ";
+			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
+			ret = true;
+		} catch (Exception e) {
+			System.out.println(e);
+		} finally {
+			if (conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (pstMember != null) {
+				try {
+					pstMember.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		return ret;
+	}
 	
 	public static boolean DeleteStoryHeader(String id) {
 		boolean ret = false;

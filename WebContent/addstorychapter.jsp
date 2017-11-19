@@ -38,10 +38,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-md-8"></div>
-			<div class="col-md-4 pull-right">
-				<a type="button" class="btn btn-success pull-right"
-					onclick="AddData()">Add</a>
+			<div class="col-md-4"></div>
+			<div id="btnAdd" name="btnAdd" class="col-md-8 pull-right">
+				<button type="button" class="btn btn-success pull-right"
+					onclick="AddData()">Add</button>
+		</div>
+		<div  id="btnEdit" name="btnEdit" class="col-md-8 pull-right" style="margin-top: -35px">
+				<button type="button" class="btn btn-primary pull-right"
+					onclick="EditData()">Edit</button>
 			</div>
 		</div>
 

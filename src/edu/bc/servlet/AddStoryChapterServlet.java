@@ -34,24 +34,46 @@ public class AddStoryChapterServlet extends HttpServlet {
 		storydetailmodel.setStory_detail_content(request.getParameter("editor1"));
 		
 		storydetailmodel.setStory_header_id(Integer.parseInt((String)session.getAttribute("storyHeaderId")));
+		//storyDetailId
+		storydetailmodel.setStory_detail_id(Integer.parseInt((String)request.getParameter("storyDetailId")));
 		
-		
-		if (StoryDao.InsertStoryDetail(storydetailmodel)) {
-			// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
-			// rd.forward(request, response);
+		if(storydetailmodel.getStory_detail_id() > 0) {
+			if (StoryDao.UpdateStoryDetail(storydetailmodel)) {
+				// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
+				// rd.forward(request, response);
 
-			response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/storychapter");
-			return;
-		} else {
-			out.print("<p style=\"color:red\">Sorry your information is not correct</p>");
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/storychapter");
+				return;
+			} else {
+				out.print("<p style=\"color:red\">Sorry your information is not correct</p>");
 
-			// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
-			// out = response.getWriter();
-			// response.setContentType("text/html");
-			// out.println("<script type=\"text/javascript\">");
-			// out.println("alert('Sorry username or password error');");
-			// out.println("</script>");
-			// rd.include(request, response);
+				// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
+				// out = response.getWriter();
+				// response.setContentType("text/html");
+				// out.println("<script type=\"text/javascript\">");
+				// out.println("alert('Sorry username or password error');");
+				// out.println("</script>");
+				// rd.include(request, response);
+			}
+			
+		}else {
+			if (StoryDao.InsertStoryDetail(storydetailmodel)) {
+				// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
+				// rd.forward(request, response);
+
+				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/storychapter");
+				return;
+			} else {
+				out.print("<p style=\"color:red\">Sorry your information is not correct</p>");
+
+				// RequestDispatcher rd = request.getRequestDispatcher("storyheader.jsp");
+				// out = response.getWriter();
+				// response.setContentType("text/html");
+				// out.println("<script type=\"text/javascript\">");
+				// out.println("alert('Sorry username or password error');");
+				// out.println("</script>");
+				// rd.include(request, response);
+			}
 		}
 
 		out.close();

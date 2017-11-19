@@ -199,6 +199,9 @@
 		});
 		
 		function Add(){
+			document.getElementById('btnAdd').style.visibility = 'visible';
+			document.getElementById('btnEdit').style.visibility = 'hidden';
+			
 			 $("#storyActName").val("");
       	     CKEDITOR.instances['editor1'].setData("")
       	    $("#modalAddStoryHeader").modal('show');
@@ -214,7 +217,24 @@
 			      url:'AddStoryChapterServlet',
 			      contentType: "application/x-www-form-urlencoded;charset=utf-8",
 			      type:'POST',
-			      data:{storyActName: $("#storyActName").val(), editor1:  $("#txt").val()},
+			      data:{storyActName: $("#storyActName").val(), editor1:  $("#txt").val(), storyDetailId: 0},
+			      success : function(data){
+			    location.reload();
+			      }
+			    }); 
+		}
+		
+		function EditData(){
+			//debugger;
+			var txt = CKEDITOR.instances['editor1'].getData();
+			$("#txt").val(txt);
+			//alert($("#txt").val());
+			
+			 $.ajax({
+			      url:'AddStoryChapterServlet',
+			      contentType: "application/x-www-form-urlencoded;charset=utf-8",
+			      type:'POST',
+			      data:{storyActName: $("#storyActName").val(), editor1:  $("#txt").val(), storyDetailId: storyDetailId},
 			      success : function(data){
 			    location.reload();
 			      }
@@ -230,6 +250,9 @@
 			for (var int = 0; int < rows; int++) {
 				
 			} */
+			
+			document.getElementById('btnEdit').style.visibility = 'visible';
+			document.getElementById('btnAdd').style.visibility = 'hidden';
 			
 			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
                  //alert("${item.story_header_name}");
