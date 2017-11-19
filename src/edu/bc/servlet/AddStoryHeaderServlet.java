@@ -137,6 +137,10 @@ public class AddStoryHeaderServlet extends HttpServlet {
 							storyheadermodel.setStory_header_price(price);
 						}						
 						break;
+					case "categories":
+						String encValue4 = new String(value.getBytes("ISO8859_1"),"UTF-8");
+						storyheadermodel.setCategories_id(Integer.parseInt(encValue4));
+						break;
 					default:
 						break;
 					}

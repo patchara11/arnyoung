@@ -17,7 +17,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.jsp" style="color: orange;">ARNYOUNG</a>
+			<a class="navbar-brand" href="home" style="color: orange;">ARNYOUNG</a>
 		</div>
 		<!-- Collect the nav links, forms, and other content for toggling -->
 		<div class="collapse navbar-collapse"

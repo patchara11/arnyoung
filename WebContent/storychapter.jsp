@@ -76,8 +76,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					
 					<button type="button" class="btn btn-success pull-right"
-						style="width: 80px;" onclick="Add()" >Add</button>
+						style="width: 80px;" onclick="Add()">Add</button>
+
+
 				</div>
 			</div>
 		</div>

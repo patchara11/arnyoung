@@ -4,7 +4,7 @@ import java.io.*;
 import java.sql.*;
 import java.util.logging.*;
 
-import com.sun.javafx.binding.StringFormatter;
+//import com.sun.javafx.binding.StringFormatter;
 
 //import edu.bc.bean.Member;					
 import edu.bc.jdbc.ConnectionJDBC;

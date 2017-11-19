@@ -21,12 +21,16 @@ public class StoryHeaderIdServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 
 		String storyHeaderId = request.getParameter("storyHeaderId");
-		
+		String storyHeaderName = request.getParameter("storyHeaderName");
+		String storyHeaderImg = request.getParameter("storyHeaderImg");
+		String storyHeaderContent = request.getParameter("storyHeaderContent");
 		
 		HttpSession session = request.getSession(false);
 		if (session != null)			
 			session.setAttribute("storyHeaderId", storyHeaderId);
-			
-			
+			session.setAttribute("storyHeaderName", storyHeaderName);
+			session.setAttribute("storyHeaderImg", storyHeaderImg);
+			session.setAttribute("storyHeaderContent", storyHeaderContent);
+				
 	}
 }

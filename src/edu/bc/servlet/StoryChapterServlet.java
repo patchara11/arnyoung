@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.bc.model.CategoriesModel;
 import edu.bc.model.StoryChapterModel;
 import edu.bc.model.StoryHeaderModel;
+import edu.bc.dao.CategoriesDao;
 import edu.bc.dao.StoryDao;
 
 @WebServlet(urlPatterns = { "/storychapter" })
@@ -36,16 +38,20 @@ public class StoryChapterServlet extends HttpServlet {
 
 		//int story_header_id = Integer.parseInt(request.getParameter("storyHeaderId"));
 		String storyHeaderId = (String)session.getAttribute("storyHeaderId");
+		String storyHeaderName = (String)session.getAttribute("storyHeaderName");
+		String storyHeaderImg = (String)session.getAttribute("storyHeaderImg");
+		String storyHeaderContent = (String)session.getAttribute("storyHeaderContent");
 		
 		list = StoryDao.QueryStoryChapter(storyHeaderId);
 		// Store info in request attribute, before forward to views
 
+		request.setAttribute("storyname", storyHeaderName);
+		request.setAttribute("storycontent", storyHeaderContent);
+		request.setAttribute("storyimg", storyHeaderImg);
+		
 		if(list.size() > 0) {
 			request.setAttribute("errorString", errorString);
 			request.setAttribute("StoryChapterModel", list);
-			request.setAttribute("storyname", list.get(0).getStory_header_name());
-			request.setAttribute("storycontent", list.get(0).getStory_header_content());
-			request.setAttribute("storyimg", list.get(0).getStory_header_img());
 		}
 		
 

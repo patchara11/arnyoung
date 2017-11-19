@@ -31,6 +31,7 @@
 							<tr>
 								<th class="text-center">No.</th>
 								<th>Story name</th>
+								<th>Categories</th>
 								<th hidden="hidden"></th>
 								<th class="btn-group pull-right">Edit & Delete</th>
 							</tr>
@@ -40,8 +41,8 @@
 								varStatus="count">
 								<tr>
 									<td class="text-center">${count.count}</td>
-									<td><a herf="#"
-										onclick="LinkSCHAP(${story_h.story_header_id})">${story_h.story_header_name}</a></td>
+									<td><a herf="#" onclick="LinkSCHAP(${story_h.story_header_id})">${story_h.story_header_name}</a></td>
+									<td>${story_h.categories_name}</td>
 									<td hidden="hidden">${story_h.story_header_id}</td>
 									<td><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
@@ -231,7 +232,21 @@
 		function LinkSCHAP(story_header_id) {		
 			storyHeaderId = story_header_id;
 			
-			sessionStorage.setItem("storyHeaderId", storyHeaderId);
+			var storyHeaderName = "";
+			var storyHeaderImg = "";
+			var storyHeaderContent = "";
+			
+			<c:forEach var="item" items="${StoryHeaderModel}" varStatus="status">
+            //alert("${item.story_header_name}");
+            if('${item.story_header_id}' == storyHeaderId){
+           	   /* alert("${item.story_header_name}"); */
+           	   
+           	   storyHeaderName = '${item.story_header_name}';
+           	   storyHeaderContent = '${item.story_header_content}';
+           	   storyHeaderImg = '${item.story_header_img}';
+            }
+        </c:forEach>
+			//sessionStorage.setItem("storyHeaderId", storyHeaderId);
 			
 			//sessionStorage.story_header_id = storyHeaderId;
 			//alert(sessionStorage.story_header_id);
@@ -239,7 +254,7 @@
 			 $.ajax({
 			      url:'storyheaderid',
 			      type:'POST',
-			      data:{storyHeaderId: storyHeaderId},
+			      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent},
 			      success : function(data){
 			    	  window.location.href="storychapter"; 
 			     //alert('Logout success');
@@ -249,16 +264,8 @@
 			    });  
 			    
 			 
-			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId;
+			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */
 		}
-		
-		function encode_utf8(s) {
-			  return unescape(encodeURIComponent(s));
-			}
-
-			function decode_utf8(s) {
-			  return decodeURIComponent(escape(s));
-			}
 			
 			
 	</script>

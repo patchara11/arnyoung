@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import edu.bc.model.CategoriesModel;
 import edu.bc.model.StoryHeaderModel;
+import edu.bc.dao.CategoriesDao;
 import edu.bc.dao.StoryDao;
 
 @WebServlet(urlPatterns = { "/storyheader" })
@@ -33,12 +35,15 @@ public class StoryHeaderServlet extends HttpServlet {
 		int member_id = (int)session.getAttribute("member_id");
 		String username = (String)session.getAttribute("username");
 		String errorString = null;
+		List<CategoriesModel> listCategories = null;
 		List<StoryHeaderModel> list = null;
 
+		listCategories = CategoriesDao.QueryCategories();
 		list = StoryDao.QueryStoryHeader(member_id);
 		// Store info in request attribute, before forward to views
 
 		request.setAttribute("errorString", errorString);
+		request.setAttribute("CategoriesModel", listCategories);
 		request.setAttribute("StoryHeaderModel", list);
 		request.setAttribute("username", username);
 
