@@ -85,7 +85,7 @@ public class StoryDao {
 
 			pst = conn.prepareStatement(
 					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id  from story_header h inner join categories c on h.categories_id = c.categories_id "
-							+ "where h.categories_id= ? order by h.story_header_name LIMIT 5 ");
+							+ "where h.categories_id= ? order by h.timestamp LIMIT 5 ");
 			pst.setInt(1, categories_id);
 
 			rs = pst.executeQuery();
@@ -261,7 +261,7 @@ public class StoryDao {
 
 			pst = conn.prepareStatement("SELECT d.story_header_id, " + "h.story_header_name, "
 					+ "h.story_header_content, " + "h.story_header_img, " + "h.story_header_price, "
-					+ "d.story_detail_act, " + "d.story_detail_id, " + "d.story_detail_content "
+					+ "d.story_detail_act, " + "d.story_detail_id, " + "d.story_detail_content, " + "h.member_id "
 					+ "FROM story_detail d left outer join story_header h on d.story_header_id = h.story_header_id "
 					+ "WHERE d.story_header_id = ? " + "order by d.story_detail_id");
 			pst.setInt(1, Integer.parseInt(storyHeaderId));
@@ -277,6 +277,7 @@ public class StoryDao {
 				tmp.setStory_detail_act(rs.getString("story_detail_act"));
 				tmp.setStory_detail_id(rs.getInt("story_detail_id"));
 				tmp.setStory_detail_content(rs.getString("story_detail_content").replaceAll("\n", ""));
+				tmp.setMember_id(rs.getInt("member_id"));
 
 				storyChapterModel.add(tmp);
 			}

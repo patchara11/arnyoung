@@ -235,6 +235,7 @@
 			var storyHeaderName = "";
 			var storyHeaderImg = "";
 			var storyHeaderContent = "";
+			var linkMemberId = "";
 			
 			<c:forEach var="item" items="${StoryHeaderModel}" varStatus="status">
             //alert("${item.story_header_name}");
@@ -244,6 +245,8 @@
            	   storyHeaderName = '${item.story_header_name}';
            	   storyHeaderContent = '${item.story_header_content}';
            	   storyHeaderImg = '${item.story_header_img}';
+           	   linkMemberId =  '${item.member_id}';
+           	   
             }
         </c:forEach>
 			//sessionStorage.setItem("storyHeaderId", storyHeaderId);
@@ -254,7 +257,7 @@
 			 $.ajax({
 			      url:'storyheaderid',
 			      type:'POST',
-			      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent},
+			      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId},
 			      success : function(data){
 			    	  window.location.href="storychapter"; 
 			     //alert('Logout success');

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import edu.bc.dao.LoginDao;
 import edu.bc.model.LoginModel;
 
+@WebServlet(urlPatterns = { "/login"})
 public class LoginServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -52,20 +54,15 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("mobile", login.getMobile());
 			session.setAttribute("pesudonym", login.getPesudonym());
 			
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
-		} else {
+//			RequestDispatcher rd = request.getRequestDispatcher("home");
+//			rd.forward(request, response);
+			
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/");
+			} 
+		else {
 			out.print("<p style=\"color:red\">Sorry username or password error</p>");
-
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-//			out = response.getWriter();  
-//			response.setContentType("text/html");  
-//			out.println("<script type=\"text/javascript\">");  
-//			out.println("alert('Sorry username or password error');");  
-//			out.println("</script>");
-			rd.include(request, response);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/");			
 		}
-
 		out.close();
 	}
 }

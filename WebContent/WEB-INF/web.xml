@@ -114,7 +114,7 @@
 		<servlet-name>deletestorychapterservlet</servlet-name>
 		<url-pattern>/DeleteStoryChapterServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>addstorychapterservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.AddStoryChapterServlet</servlet-class>
@@ -123,6 +123,16 @@
 	<servlet-mapping>
 		<servlet-name>addstorychapterservlet</servlet-name>
 		<url-pattern>/AddStoryChapterServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>storycontentservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.StoryContentServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>storycontentservlet</servlet-name>
+		<url-pattern>/StoryContentServlet</url-pattern>
 	</servlet-mapping>
 
 	<welcome-file-list>
@@ -161,6 +171,6 @@
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/encodingFilter </url-pattern>
 	</filter-mapping>
-	
+
 
 </web-app>

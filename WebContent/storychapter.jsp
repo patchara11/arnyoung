@@ -53,7 +53,7 @@
 								<th>Chapter name</th>
 								<th>Price</th>
 								<th hidden="hidden"></th>
-								<th class="btn-group pull-right">Edit & Delete</th>
+								<th class="btn-group pull-right thEditDelete">Edit & Delete</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -64,7 +64,7 @@
 									<td><a herf="#"
 										onclick="LinkSCHAP(${story_h.story_detail_id})">${story_h.story_detail_act}</a></td>
 									<td>${story_h.story_header_price}</td>
-									<td><div class="btn-group pull-right">
+									<td class="tdEditDelete"><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
 												style="width: 80px;"
 												onclick="EditSH(${story_h.story_detail_id})">Edit</button>
@@ -77,7 +77,7 @@
 						</tbody>
 					</table>
 					
-					<button type="button" class="btn btn-success pull-right"
+					<button id="addNew" type="button" class="btn btn-success pull-right"
 						style="width: 80px;" onclick="Add()">Add</button>
 
 
@@ -141,21 +141,21 @@
 	<div class="alert" role="alert" id="result"></div>
 
 	<script type="text/javascript">
-/* 		$(document).ready(function(){
-		   var story_header_id = $("#story_header_id").val();
-		   //alert(aa);
-		   $.ajax({
-		      url:'storychapter',
-		      type:'POST',
-		      data:{storyHeaderId: story_header_id},
-		      success : function(data){
-		     //alert('Logout success');
-		     // window.location = data.url; 
-		    //location.reload();
-		      }
-		    });  
+		$(document).ready(function(){
+			var member_id = '<%=session.getAttribute("member_id")%>';
+			var linkMemberId = '<%=session.getAttribute("linkMemberId")%>';
+			//alert(member_id);
+			//alert(linkMemberId);
+			if(member_id != linkMemberId){
+				//document.getElementById('thEditDelete').style.visibility = 'hidden';
+				document.getElementById('addNew').style.visibility = 'hidden';
+				 $('th.thEditDelete').hide();
+				 $('td.tdEditDelete').hide();
+				//document.getElementsByClassName('tdEditDelete').style.visibility = 'hidden';
+				//document.getElementById('btnEdit').style.visibility = 'hidden';
+			}
 
-		}); */
+		}); 
 	
 	    var storyHeaderId = 0;
 		function ConfirmDelSH(story_detail_id) {		
@@ -258,7 +258,7 @@
 			document.getElementById('btnAdd').style.visibility = 'hidden';
 			
 			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
-                 //alert("${item.story_header_name}");
+                 //alert("${StoryChapterModel[0].story_header_name}");
                  if('${item.story_detail_id}' == storyDetailId){
                 	   // alert("${item.story_detail_act}"); 
                 	   
@@ -273,27 +273,64 @@
 			$("#modalAddStoryHeader").modal('show');
 		}
 		
-		function LinkSCHAP(story_header_id) {		
-			storyHeaderId = story_header_id;
-			$.ajax({
-			      url:'StoryChapterServlet',
+		function LinkSCHAP(story_detail_id) {		
+			//storyHeaderId = story_header_id;
+			var storyDetailId = story_detail_id;
+			
+			var storyHeaderName = "";
+			var storyHeaderImg = "";
+			var storyHeaderContent = "";
+			var linkMemberId = "";
+			
+			var storyDetailName = "";
+			var storyDetailContent = "";
+			
+			 //storyDetailName = '${item.story_detail_name}';
+         	  //storyDetailContent = '${item.story_detail_content}';
+         	  
+			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
+            //alert("${item.story_header_name}");
+            if('${item.story_detail_id}' == storyDetailId){
+            	   storyDetailName = "${item.story_detail_act}"; 
+            	   storyDetailContent ="${item.story_detail_content}"; 
+           	   //alert(storyDetailName);
+           	   storyHeaderId = '${item.story_header_id}';
+           	   
+           	   storyHeaderName = '${item.story_header_name}';
+           	   storyHeaderContent = '${item.story_header_content}';
+           	   storyHeaderImg = '${item.story_header_img}';
+           	   linkMemberId =  '${item.member_id}';
+           	   
+            }
+        </c:forEach>
+			//sessionStorage.setItem("storyHeaderId", storyHeaderId);
+			
+			//sessionStorage.story_header_id = storyHeaderId;
+			//alert(sessionStorage.story_header_id);
+			
+			 $.ajax({
+			      url:'storyheaderid',
 			      type:'POST',
-			      data:{storyHeaderId: storyHeaderId},
+			      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId, storyDetailName: storyDetailName, storyDetailContent: storyDetailContent},
 			      success : function(data){
+			    	  window.location.href="storycontent"; 
 			     //alert('Logout success');
-			    /*       window.location.href="storyheader.jsp";  */
-			    location.reload();
+			     // window.location = data.url; 
+			    //location.reload();
 			      }
-			    });
+			    });  
+			    
+			 
+			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */
 		}
 		
-		function encode_utf8(s) {
+		/* function encode_utf8(s) {
 			  return unescape(encodeURIComponent(s));
 			}
 
 			function decode_utf8(s) {
 			  return decodeURIComponent(escape(s));
-			}
+			} */
 			
 			
 	</script>

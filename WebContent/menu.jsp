@@ -148,7 +148,7 @@
 		      data:'',
 		      success : function(data){
 		          alert('Logout success');
-		          window.location.href="index.jsp";
+		          window.location.href="home";
 		      }
 		    });
 

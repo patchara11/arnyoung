@@ -24,6 +24,10 @@ public class StoryHeaderIdServlet extends HttpServlet {
 		String storyHeaderName = request.getParameter("storyHeaderName");
 		String storyHeaderImg = request.getParameter("storyHeaderImg");
 		String storyHeaderContent = request.getParameter("storyHeaderContent");
+		String storyDetailName = request.getParameter("storyDetailName");
+		String storyDetailContent = request.getParameter("storyDetailContent");
+		//linkMemberId
+		String linkMemberId = request.getParameter("linkMemberId");
 		
 		HttpSession session = request.getSession(false);
 		if (session != null)			
@@ -31,6 +35,9 @@ public class StoryHeaderIdServlet extends HttpServlet {
 			session.setAttribute("storyHeaderName", storyHeaderName);
 			session.setAttribute("storyHeaderImg", storyHeaderImg);
 			session.setAttribute("storyHeaderContent", storyHeaderContent);
-				
+			session.setAttribute("linkMemberId", linkMemberId);
+			
+			session.setAttribute("storyDetailName", storyDetailName);
+			session.setAttribute("storyDetailContent", storyDetailContent);
 	}
 }

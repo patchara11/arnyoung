@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Laravel Tutorials</title>
@@ -47,18 +46,21 @@
 									<img id="imgSH" name="imgSH"
 										src="http://localhost:8080/arnyoung/images/${listTopImg.story_header_img}"
 										atl="Mountain View" class="text-center"
-										style="width: 600px; height: 500px;">
+										style="width: 500px; height: 350px;">
 								</c:forEach>
 							</div>
 							<!-- /.col-md-8 -->
 							<div class="col-md-4">
 								<h1>TOP OF TALES</h1>
 								<c:forEach var="listTop" items="${listTop}">
-									<li><a href="#">${listTop.story_header_name}</a></li>
+									<li><a href="#"
+										onclick="LinkSCHAP(${listTop.story_header_id}, 'TOP')">${listTop.story_header_name}</a></li>
 									<label>${listTop.story_header_content}</label>
 									</br>
+									<button class="btn btn-warning btn-lg"
+										onclick="LinkSCHAP(${listTop.story_header_id}, 'TOP')">Call
+										to Action!</button>
 								</c:forEach>
-								<a class="btn btn-success btn-lg" href="#">Call to Action!</a>
 							</div>
 							<!-- /.col-md-4 -->
 						</div>
@@ -79,30 +81,56 @@
 
 						<!-- Content Row -->
 						<div class="row">
-							<div class="col-md-4">
-								<h2>Action (HOT)</h2>
+							<div class="col-md-4 center">
+								<h2 class="text-center">Action (HOT)</h2>
 								<c:forEach var="listActionTop" items="${listActionTop}">
-									<li><a href="#">${listActionTop.story_header_name}</a></li>
+									<div class="cols-md-12 text-center">
+										<img id="imgSH" name="imgSH"
+											src="http://localhost:8080/arnyoung/images/${listActionTop.story_header_img}"
+											onclick="LinkSCHAP(${listActionTop.story_header_id}, 'ActionHOT')"
+											atl="Mountain View" class="img-responsive center-block"
+											style="width: 100px; height: 100px;"> <a
+											class="center-block" href="#"
+											onclick="LinkSCHAP(${listActionTop.story_header_id}, 'ActionHOT')">${listActionTop.story_header_name}</a>
+										<label class="">${listActionTop.story_header_content}</label>
+									</div>
 								</c:forEach>
-								<a class="btn btn-default" href="#">More Info</a>
+								<!-- <a class="btn btn-default" href="#">More Info</a> -->
 							</div>
 							<!-- /.col-md-4 -->
 							<div class="col-md-4">
-								<h2>Drama (HOT)</h2>
+								<h2 class="text-center">Drama (HOT)</h2>
 								<c:forEach var="listDramaTop" items="${listDramaTop}">
-									<li><a href="#">${listDramaTop.story_header_name}</a></li>
+									<div class="cols-md-12 text-center">
+										<img id="imgSH" name="imgSH"
+											src="http://localhost:8080/arnyoung/images/${listDramaTop.story_header_img}"
+											onclick="LinkSCHAP(${listDramaTop.story_header_id}, 'DramaHOT')"
+											atl="Mountain View" class="img-responsive center-block"
+											style="width: 100px; height: 100px;"> <a
+											class="center-block" href="#"
+											onclick="LinkSCHAP(${listDramaTop.story_header_id}, 'ActionHOT')">${listDramaTop.story_header_name}</a>
+										<label class="">${listDramaTop.story_header_content}</label>
+									</div>
 								</c:forEach>
-								<a class="btn btn-default" href="#">More Info</a>
+								<!-- <a class="btn btn-default" href="#">More Info</a> -->
 							</div>
 							<!-- /.col-md-4 -->
 							<div class="col-md-4">
-								<h2>Horror (HOT)</h2>
+								<h2 class="text-center">Horror (HOT)</h2>
 								<c:forEach var="listHorrorTop" items="${listHorrorTop}">
-									<li><a href="#">${listHorrorTop.story_header_name}</a></li>
-									<label>${listHorrorTop.story_header_content}</label>
-									</br>
+									<div class="cols-md-12 text-center">
+										<img id="imgSH" name="imgSH"
+											src="http://localhost:8080/arnyoung/images/${listHorrorTop.story_header_img}"
+											onclick="LinkSCHAP(${listHorrorTop.story_header_id}, 'HorrorHOT')"
+											atl="Mountain View" class="img-responsive center-block"
+											style="width: 100px; height: 100px;"> <a
+											class="center-block" href="#"
+											onclick="LinkSCHAP(${listHorrorTop.story_header_id}, 'ActionHOT')">${listHorrorTop.story_header_name}</a>
+										<label class="">${listHorrorTop.story_header_content}</label>
+									</div>
+
 								</c:forEach>
-								<a class="btn btn-default" href="#">More Info</a>
+								<!-- <a class="btn btn-default" href="#">More Info</a> -->
 							</div>
 							<!-- /.col-md-4 -->
 
@@ -127,37 +155,52 @@
             /.col-md-4 -->
 							<div class="row">
 								<div class="col-md-4">
-									<h2>Action</h2>
+									<h2 class="text-center">Action</h2>
 									<c:forEach var="listAction" items="${listAction}">
-										<li><a href="#">${listAction.story_header_name}</a></li>
+										<div class="col-md-12 text-center">
+											<a href="#"
+												onclick="LinkSCHAP(${listAction.story_header_id}, 'Action')">${listAction.story_header_name}</a>
+										</div>
 									</c:forEach>
-									<a class="btn btn-default" href="#">More Info</a>
+									<div class="col-md-12 text-center">
+										<a class="btn btn-default text-center" href="#">More Info</a>
+									</div>
 								</div>
 								<!-- /.col-md-4 -->
 								<div class="col-md-4">
-									<h2>Drama</h2>
+									<h2 class="text-center">Drama</h2>
 									<c:forEach var="listDrama" items="${listDrama}">
-										<li><a href="#">${listDrama.story_header_name}</a></li>
+										<div class="col-md-12 text-center">
+											<a href="#"
+												onclick="LinkSCHAP(${listDrama.story_header_id}, 'Drama')">${listDrama.story_header_name}</a>
+										</div>
 									</c:forEach>
-									<a class="btn btn-default" href="#">More Info</a>
+									<div class="col-md-12 text-center">
+									<a class="btn btn-default text-center" href="#">More Info</a>
+									</div>
 								</div>
 								<!-- /.col-md-4 -->
 								<div class="col-md-4">
-									<h2>Horror</h2>
+									<h2 class="text-center">Horror</h2>
 									<c:forEach var="listHorror" items="${listHorror}">
-										<li><a href="#">${listHorror.story_header_name}</a></li>
+										<div class="col-md-12 text-center">
+											<a href="#"
+												onclick="LinkSCHAP(${listHorror.story_header_id}, 'Horror')">${listHorror.story_header_name}</a>
+										</div>
 									</c:forEach>
-									<a class="btn btn-default" href="#">More Info</a>
+									<div class="col-md-12 text-center">
+									<a class="btn btn-default text-center" href="#">More Info</a>
+									</div>
 								</div>
 								<!-- /.col-md-4 -->
 							</div>
 							<!-- /.row -->
 
 							<!-- Footer -->
-							<footer>
+							<footer style="margin-top: 100px;margin-bottom: 0px;">
 								<div class="row">
 									<div class="col-lg-12">
-										<p>Copyright &copy; Your Website 2014</p>
+										<p><b><label id="lbCopy"></label></b></p>
 									</div>
 								</div>
 							</footer>
@@ -184,6 +227,12 @@
         </script>
  	 <script src="http://www.tutorialspoint.com/bootstrap/js/bootstrap.min.js"></script> -->
 		<script>
+		$(document).ready(function(){
+			var d = new Date();
+			var n = d.getFullYear();
+			document.getElementById('lbCopy').innerHTML = 'Copyright Arnyoung @'+n;
+		}); 
+		
 			function ajaxLoad(filename, content) {
 				content = typeof content !== 'undefined' ? content : 'content';
 				//   $('.loading').show();
@@ -200,6 +249,132 @@
 					}
 				});
 
+			}
+			
+			function LinkSCHAP(story_header_id, strTop) {		
+				storyHeaderId = story_header_id;
+				
+				var storyHeaderName = "";
+				var storyHeaderImg = "";
+				var storyHeaderContent = "";
+				var linkMemberId = "";
+				
+				switch (strTop) {
+				case 'TOP':
+					<c:forEach var="item" items="${listTop}" varStatus="status">
+		          //  alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	   linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+					break;
+				case 'ActionHOT':
+					<c:forEach var="item" items="${listActionTop}" varStatus="status">
+		         //   alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				case 'DramaHOT':
+					<c:forEach var="item" items="${listDramaTop}" varStatus="status">
+		         //   alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				case 'HorrorHOT':
+					<c:forEach var="item" items="${listHorrorTop}" varStatus="status">
+		         //   alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				case 'Action':
+					<c:forEach var="item" items="${listAction}" varStatus="status">
+		         //   alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				case 'Drama':
+					<c:forEach var="item" items="${listDrama}" varStatus="status">
+		          //  alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				case 'Horror':
+					<c:forEach var="item" items="${listHorror}" varStatus="status">
+		          //  alert(strTop);
+			            if('${item.story_header_id}' == storyHeaderId){
+			           	   /* alert("${item.story_header_name}"); */
+			           	   
+			           	   storyHeaderName = '${item.story_header_name}';
+			           	   storyHeaderContent = '${item.story_header_content}';
+			           	   storyHeaderImg = '${item.story_header_img}';
+			           	linkMemberId =  '${item.member_id}';
+			            }
+		            </c:forEach>
+				    break;
+				default:
+					break;
+				}
+				
+				
+				//sessionStorage.setItem("storyHeaderId", storyHeaderId);
+				
+				//sessionStorage.story_header_id = storyHeaderId;
+				//alert(sessionStorage.story_header_id);
+				
+				 $.ajax({
+				      url:'storyheaderid',
+				      type:'POST',
+				      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId},
+				      success : function(data){
+				    	  window.location.href="storychapter"; 
+				     //alert('Logout success');
+				     // window.location = data.url; 
+				    //location.reload();
+				      }
+				    });  
+				    
+				 
+				  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */
 			}
 		</script>
 </body>
