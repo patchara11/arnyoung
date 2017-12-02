@@ -57,9 +57,9 @@
 										onclick="LinkSCHAP(${listTop.story_header_id}, 'TOP')">${listTop.story_header_name}</a></li>
 									<label>${listTop.story_header_content}</label>
 									</br>
-									<button class="btn btn-warning btn-lg"
+									<%-- <button class="btn btn-warning btn-lg"
 										onclick="LinkSCHAP(${listTop.story_header_id}, 'TOP')">Call
-										to Action!</button>
+										to Action!</button> --%>
 								</c:forEach>
 							</div>
 							<!-- /.col-md-4 -->
@@ -163,7 +163,8 @@
 										</div>
 									</c:forEach>
 									<div class="col-md-12 text-center">
-										<a class="btn btn-default text-center" href="#">More Info</a>
+										<a class="btn btn-default text-center" href="#"
+											onclick=FictionType('Action')>More Info</a>
 									</div>
 								</div>
 								<!-- /.col-md-4 -->
@@ -176,7 +177,8 @@
 										</div>
 									</c:forEach>
 									<div class="col-md-12 text-center">
-									<a class="btn btn-default text-center" href="#">More Info</a>
+										<a class="btn btn-default text-center" href="#"
+											onclick=FictionType('Drama')>More Info</a>
 									</div>
 								</div>
 								<!-- /.col-md-4 -->
@@ -189,7 +191,8 @@
 										</div>
 									</c:forEach>
 									<div class="col-md-12 text-center">
-									<a class="btn btn-default text-center" href="#">More Info</a>
+										<a class="btn btn-default text-center" href="#"
+											onclick=FictionType('Horror')>More Info</a>
 									</div>
 								</div>
 								<!-- /.col-md-4 -->
@@ -197,10 +200,12 @@
 							<!-- /.row -->
 
 							<!-- Footer -->
-							<footer style="margin-top: 100px;margin-bottom: 0px;">
+							<footer style="margin-top: 100px; margin-bottom: 0px;">
 								<div class="row">
 									<div class="col-lg-12">
-										<p><b><label id="lbCopy"></label></b></p>
+										<p>
+											<b><label id="lbCopy"></label></b>
+										</p>
 									</div>
 								</div>
 							</footer>
@@ -376,6 +381,8 @@
 				 
 				  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */
 			}
+		
+			
 		</script>
 </body>
 </html>

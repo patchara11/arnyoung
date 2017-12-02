@@ -134,6 +134,36 @@
 		<servlet-name>storycontentservlet</servlet-name>
 		<url-pattern>/StoryContentServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>fictiontypeservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.FictionTypeServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>fictiontypeservlet</servlet-name>
+		<url-pattern>/FictionTypeServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>categoriesnameservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.CategoriesNameServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>categoriesnameservlet</servlet-name>
+		<url-pattern>/CategoriesNameServlet</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>likethisservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.LikeThisServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>likethisservlet</servlet-name>
+		<url-pattern>/LikeThisServlet</url-pattern>
+	</servlet-mapping>
 
 	<welcome-file-list>
 

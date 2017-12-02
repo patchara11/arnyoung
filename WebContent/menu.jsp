@@ -39,10 +39,41 @@
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> Style <b class="caret"></b>
 				</a>
+				<%-- <div class="row">
+								<div class="col-md-4">
+									<h2 class="text-center">Action</h2>
+									<c:forEach var="listAction" items="${listAction}">
+										<div class="col-md-12 text-center">
+											<a href="#"
+												onclick="LinkSCHAP(${listAction.story_header_id}, 'Action')">${listAction.story_header_name}</a>
+										</div>
+									</c:forEach>
+								</div>
+						<div class="col-md-4">
+								<h2 class="text-center">Drama</h2>
+								<c:forEach var="listDramaTop" items="${listDrama}">
+									<div class="cols-md-12 text-center"> <a
+											class="center-block" href="#"
+											onclick="LinkSCHAP(${listDrama.story_header_id}, 'ActionHOT')">${listDrama.story_header_name}</a>
+										<label class="">${listDrama.story_header_content}</label>
+									</div>
+								</c:forEach>
+								<!-- <a class="btn btn-default" href="#">More Info</a> -->
+							</div>
+						<div class="col-md-4">
+									<h2 class="text-center">Horror</h2>
+									<c:forEach var="listHorror" items="${listHorror}">
+										<div class="col-md-12 text-center">
+											<a href="#"
+												onclick="LinkSCHAP(${listHorror.story_header_id}, 'Horror')">${listHorror.story_header_name}</a>
+										</div>
+									</c:forEach>
+								</div> --%>
 					<ul class="dropdown-menu">
-						<li><a href="#">Action</a></li>
-						<li><a href="#">Drama</a></li>
-						<li><a href="#">Horror</a></li>
+						<li>
+						<li><a href="#" onclick=FictionType('Action')>Action</a></li>
+						<li><a href="#" onclick=FictionType('Drama')>Drama</a></li>
+						<li><a href="#" onclick=FictionType('Horror')>Horror</a></li>
 						<!--   <li class = "divider"></li>
 			               <li><a href = "#">Separated link</a></li>			               
 			               <li class = "divider"></li>
@@ -161,6 +192,18 @@
 		document.getElementById("liName").children[0].style.display = "none";
 		document.getElementById("liWriting").children[0].style.display = "none";
 	}
+	
+	function FictionType(type) {
+		//alert(type);
+		    $.ajax({
+		      url:'categoriesname',
+		      type:'POST',
+		      data:{categories:type},
+		      success : function(data){
+		          window.location.href="fictiontype";
+		      }
+		    }); 
+	}			
 	</script>
 
 </body>

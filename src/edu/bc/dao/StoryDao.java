@@ -14,7 +14,7 @@ import edu.bc.model.StoryHeaderModel;
 
 public class StoryDao {
 
-	public static List<StoryHeaderModel> QueryStoryHeader(int member_id) {
+	public static List<StoryHeaderModel> QueryStoryHeader(int member_id, String categories_name) {
 
 		List<StoryHeaderModel> storyheadermodel = new ArrayList<StoryHeaderModel>();
 		Connection conn = null;
@@ -24,10 +24,30 @@ public class StoryDao {
 		try {
 			conn = ConnectionJDBC.getConnection();
 
-			pst = conn.prepareStatement(
-					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id  from story_header h inner join categories c on h.categories_id = c.categories_id "
-							+ "where h.member_id= ? order by h.story_header_name ");
-			pst.setInt(1, member_id);
+			
+			if(!"".trim().equals(categories_name)) {
+				pst = conn.prepareStatement(
+						"select m.pesudonym, c.categories_name, h.member_id, h.story_header_content, h.story_header_id, "
+						+ "h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id, "
+						+ "(select count(*) from like_this l where l.story_header_id = h.story_header_id) as total_like,  ifnull(lt.like_this_id, 0) as m_like, "
+						+ "(select count(*) from payment where story_header_id = h.story_header_id and member_id=? and payment_confirm = 1) as payment "
+						+ "from story_header h inner join categories c on h.categories_id = c.categories_id  left outer join member m on h.member_id = m.member_id "
+						+ "left outer join like_this lt on h.story_header_id = lt.story_header_id and lt.member_id=? "
+								+ "where c.categories_name= ? order by h.story_header_name ");
+				pst.setInt(1, member_id);
+				pst.setInt(2, member_id);
+				pst.setString(3, categories_name);
+			}else {
+				pst = conn.prepareStatement(
+						"select m.pesudonym, c.categories_name, h.member_id, h.story_header_content, h.story_header_id, "
+						+ "h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id,  "
+						+ "(select count(*) from like_this l where l.story_header_id = h.story_header_id) as total_like, ifnull(lt.like_this_id, 0) as m_like, "
+						+ "(select count(*) from payment where story_header_id = h.story_header_id and payment_confirm = 1) as payment "
+						+ "from story_header h inner join categories c on h.categories_id = c.categories_id left outer join member m on h.member_id = m.member_id "
+						+ "left outer join like_this lt on h.story_header_id = lt.story_header_id "
+								+ "where h.member_id= ? order by h.story_header_name ");
+				pst.setInt(1, member_id);
+			}
 
 			rs = pst.executeQuery();
 			while (rs.next()) {
@@ -40,6 +60,10 @@ public class StoryDao {
 				tmp.setStory_header_name(rs.getString("story_header_name"));
 				tmp.setStory_header_price(rs.getDouble("story_header_price"));
 				tmp.setCategories_id(rs.getInt("categories_id"));
+				tmp.setPesudonym(rs.getString("pesudonym"));
+				tmp.setTotal_like(rs.getInt("total_like"));
+				tmp.setM_like(rs.getInt("m_like"));
+				tmp.setPayment(rs.getInt("payment"));
 
 				storyheadermodel.add(tmp);
 			}
@@ -261,7 +285,8 @@ public class StoryDao {
 
 			pst = conn.prepareStatement("SELECT d.story_header_id, " + "h.story_header_name, "
 					+ "h.story_header_content, " + "h.story_header_img, " + "h.story_header_price, "
-					+ "d.story_detail_act, " + "d.story_detail_id, " + "d.story_detail_content, " + "h.member_id "
+					+ "d.story_detail_act, " + "d.story_detail_id, " + "d.story_detail_content, " + "h.member_id, "
+				    + "(select count(*) from payment where story_header_id = h.story_header_id and  member_id = 2 and payment_confirm = 1) as payment "
 					+ "FROM story_detail d left outer join story_header h on d.story_header_id = h.story_header_id "
 					+ "WHERE d.story_header_id = ? " + "order by d.story_detail_id");
 			pst.setInt(1, Integer.parseInt(storyHeaderId));
@@ -278,6 +303,7 @@ public class StoryDao {
 				tmp.setStory_detail_id(rs.getInt("story_detail_id"));
 				tmp.setStory_detail_content(rs.getString("story_detail_content").replaceAll("\n", ""));
 				tmp.setMember_id(rs.getInt("member_id"));
+				tmp.setPayment(rs.getInt("payment"));
 
 				storyChapterModel.add(tmp);
 			}

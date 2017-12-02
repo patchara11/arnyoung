@@ -11,6 +11,15 @@ public class StoryChapterModel {
 	int story_detail_id;
 	String story_detail_act;
 	String story_detail_content;
+	int payment;
+
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
 
 	public int getMember_id() {
 		return member_id;

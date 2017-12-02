@@ -52,7 +52,7 @@
 								<th class="text-center">Act</th>
 								<th>Chapter name</th>
 								<th>Price</th>
-								<th hidden="hidden"></th>
+								<th class="thBuy">Buy</th>
 								<th class="btn-group pull-right thEditDelete">Edit & Delete</th>
 							</tr>
 						</thead>
@@ -64,6 +64,7 @@
 									<td><a herf="#"
 										onclick="LinkSCHAP(${story_h.story_detail_id})">${story_h.story_detail_act}</a></td>
 									<td>${story_h.story_header_price}</td>
+									<td class="tdBuy"><a id="buy_${story_h.story_detail_id}" class="btn btn-warning fa fa-btc" aria-hidden="true" onclick="Buy(${story_h.story_detail_id})"></a></td>
 									<td class="tdEditDelete"><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
 												style="width: 80px;"
@@ -144,19 +145,29 @@
 		$(document).ready(function(){
 			var member_id = '<%=session.getAttribute("member_id")%>';
 			var linkMemberId = '<%=session.getAttribute("linkMemberId")%>';
-			//alert(member_id);
-			//alert(linkMemberId);
 			if(member_id != linkMemberId){
-				//document.getElementById('thEditDelete').style.visibility = 'hidden';
 				document.getElementById('addNew').style.visibility = 'hidden';
 				 $('th.thEditDelete').hide();
 				 $('td.tdEditDelete').hide();
-				//document.getElementsByClassName('tdEditDelete').style.visibility = 'hidden';
-				//document.getElementById('btnEdit').style.visibility = 'hidden';
+				 
+				 CheckBuy();
+			}else{
+				$('th.thBuy').hide();
+				$('td.tdBuy').hide();
 			}
 
 		}); 
 	
+		function CheckBuy() {				
+			//alert("ok");
+			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
+			    if('${item.payment}' != 0 || '${item.story_header_price}' == 0.0){
+			    	  $("#buy_${item.story_detail_id}").hide();
+			    	 // alert("#buy_${item.story_detail_id}");
+			    }
+	         </c:forEach>
+		}
+		
 	    var storyHeaderId = 0;
 		function ConfirmDelSH(story_detail_id) {		
 			storyDetailId = story_detail_id;

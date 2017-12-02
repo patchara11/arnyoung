@@ -10,7 +10,43 @@ public class StoryHeaderModel {
 	String story_header_img;
 	double story_header_price;
 	String categories_name;
+	String pesudonym;
+	int total_like;
+	int m_like;
+	int payment;
 	
+	public int getTotal_like() {
+		return total_like;
+	}
+
+	public void setTotal_like(int total_like) {
+		this.total_like = total_like;
+	}
+
+	public int getM_like() {
+		return m_like;
+	}
+
+	public void setM_like(int m_like) {
+		this.m_like = m_like;
+	}
+
+	public int getPayment() {
+		return payment;
+	}
+
+	public void setPayment(int payment) {
+		this.payment = payment;
+	}
+
+	public String getPesudonym() {
+		return pesudonym;
+	}
+
+	public void setPesudonym(String pesudonym) {
+		this.pesudonym = pesudonym;
+	}
+
 	public double getStory_header_price() {
 		return story_header_price;
 	}
