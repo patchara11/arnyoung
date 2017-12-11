@@ -41,11 +41,12 @@ public class StoryContentServlet extends HttpServlet {
 		String storyHeaderName = (String)session.getAttribute("storyHeaderName");
 		String storyHeaderImg = (String)session.getAttribute("storyHeaderImg");
 		String storyHeaderContent = (String)session.getAttribute("storyHeaderContent");
+		int memberId = (int)session.getAttribute("member_id");
 		
 		String storyDetailName = (String)session.getAttribute("storyDetailName");
 		String storyDetailContent = (String)session.getAttribute("storyDetailContent");
 		
-		list = StoryDao.QueryStoryChapter(storyHeaderId);
+		list = StoryDao.QueryStoryChapter(storyHeaderId, memberId);
 		// Store info in request attribute, before forward to views
 
 		request.setAttribute("storyname", storyHeaderName);

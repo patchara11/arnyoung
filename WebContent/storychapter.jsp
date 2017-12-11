@@ -64,7 +64,9 @@
 									<td><a herf="#"
 										onclick="LinkSCHAP(${story_h.story_detail_id})">${story_h.story_detail_act}</a></td>
 									<td>${story_h.story_header_price}</td>
-									<td class="tdBuy"><a id="buy_${story_h.story_detail_id}" class="btn btn-warning fa fa-btc" aria-hidden="true" onclick="Buy(${story_h.story_detail_id})"></a></td>
+									<td class="tdBuy"><a id="buy_${story_h.story_detail_id}"
+										class="btn btn-warning fa fa-btc" aria-hidden="true"
+										onclick="Buy(${story_h.story_detail_id})"></a></td>
 									<td class="tdEditDelete"><div class="btn-group pull-right">
 											<button type="button" class="btn btn-info"
 												style="width: 80px;"
@@ -77,9 +79,10 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					
-					<button id="addNew" type="button" class="btn btn-success pull-right"
-						style="width: 80px;" onclick="Add()">Add</button>
+
+					<button id="addNew" type="button"
+						class="btn btn-success pull-right" style="width: 80px;"
+						onclick="Add()">Add</button>
 
 
 				</div>
@@ -162,10 +165,35 @@
 			//alert("ok");
 			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
 			    if('${item.payment}' != 0 || '${item.story_header_price}' == 0.0){
+			    //	alert('${item.payment}');
 			    	  $("#buy_${item.story_detail_id}").hide();
 			    	 // alert("#buy_${item.story_detail_id}");
 			    }
 	         </c:forEach>
+		}
+		
+		function Buy(story_detail_id){
+			var storyHeaderId = "";
+			
+			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
+			    if('${item.story_detail_id}' == story_detail_id){
+			     	storyHeaderId  = '${item.story_header_id}';
+			    }
+	         </c:forEach> 
+	         //alert(storyHeaderId);
+			var member_id = '<%=session.getAttribute("member_id")%>';
+			if (member_id != "null") {
+				 $.ajax({
+				      url:'payment',
+				      type:'POST',
+				      data:{storyHeaderId: storyHeaderId, storyDetailId: story_detail_id},
+				      success : function(data){
+				        location.reload();
+				      }
+				    });
+			} else {
+				alert("Please login.");
+			}
 		}
 		
 	    var storyHeaderId = 0;
@@ -196,7 +224,7 @@
 				//Acciones si el usuario confirma
 				//$("#result").html("CONFIRMADO");
 				//alert(storyHeaderId);
-				  $.ajax({
+				 $.ajax({
 				      url:'DeleteStoryChapterServlet',
 				      type:'POST',
 				      data:{storyDetailId: storyDetailId},
@@ -295,41 +323,69 @@
 			
 			var storyDetailName = "";
 			var storyDetailContent = "";
-			
+			var paymentConfirm = 0;
+			var payment = 0;
 			 //storyDetailName = '${item.story_detail_name}';
          	  //storyDetailContent = '${item.story_detail_content}';
          	  
 			<c:forEach var="item" items="${StoryChapterModel}" varStatus="status">
-            //alert("${item.story_header_name}");
-            if('${item.story_detail_id}' == storyDetailId){
-            	   storyDetailName = "${item.story_detail_act}"; 
-            	   storyDetailContent ="${item.story_detail_content}"; 
-           	   //alert(storyDetailName);
-           	   storyHeaderId = '${item.story_header_id}';
-           	   
-           	   storyHeaderName = '${item.story_header_name}';
-           	   storyHeaderContent = '${item.story_header_content}';
-           	   storyHeaderImg = '${item.story_header_img}';
-           	   linkMemberId =  '${item.member_id}';
-           	   
-            }
-        </c:forEach>
+	            //alert("${item.story_header_name}");
+	            if('${item.story_detail_id}' == storyDetailId){
+	            	   storyDetailName = "${item.story_detail_act}"; 
+	            	   storyDetailContent ="${item.story_detail_content}"; 
+	           	   //alert(storyDetailName);
+	           	   storyHeaderId = '${item.story_header_id}';
+	           	   
+	           	   storyHeaderName = '${item.story_header_name}';
+	           	   storyHeaderContent = '${item.story_header_content}';
+	           	   storyHeaderImg = '${item.story_header_img}';
+	           	   linkMemberId =  '${item.member_id}';
+	           	   
+	           	   paymentConfirm =  '${item.payment_confirm}';
+	           	   payment =  '${item.payment}';
+	            }
+            </c:forEach>
 			//sessionStorage.setItem("storyHeaderId", storyHeaderId);
 			
 			//sessionStorage.story_header_id = storyHeaderId;
 			//alert(sessionStorage.story_header_id);
 			
-			 $.ajax({
-			      url:'storyheaderid',
-			      type:'POST',
-			      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId, storyDetailName: storyDetailName, storyDetailContent: storyDetailContent},
-			      success : function(data){
-			    	  window.location.href="storycontent"; 
-			     //alert('Logout success');
-			     // window.location = data.url; 
-			    //location.reload();
-			      }
-			    });  
+            var member_id = '<%=session.getAttribute("member_id")%>';
+			if(linkMemberId == member_id){
+				$.ajax({
+				      url:'storyheaderid',
+				      type:'POST',
+				      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId, storyDetailName: storyDetailName, storyDetailContent: storyDetailContent},
+				      success : function(data){
+				    	  window.location.href="storycontent"; 
+				     //alert('Logout success');
+				     // window.location = data.url; 
+				    //location.reload();
+				      }
+				    });  
+			}else{
+				if(paymentConfirm > 0){
+					//alert(paymentConfirm);
+					$.ajax({
+					      url:'storyheaderid',
+					      type:'POST',
+					      data:{storyHeaderId: storyHeaderId, storyHeaderName: storyHeaderName, storyHeaderImg: storyHeaderImg, storyHeaderContent: storyHeaderContent, linkMemberId: linkMemberId, storyDetailName: storyDetailName, storyDetailContent: storyDetailContent},
+					      success : function(data){
+					    	  window.location.href="storycontent"; 
+					     //alert('Logout success');
+					     // window.location = data.url; 
+					    //location.reload();
+					      }
+					    });  
+				}else{
+					if(payment > 0){
+						alert("Plese wait for confirm by admin.");
+					}else{
+						alert("Plese buy this chapter.");	
+					}
+					
+				}
+			}
 			    
 			 
 			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */

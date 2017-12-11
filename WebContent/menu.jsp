@@ -25,7 +25,7 @@
 			<ul class="nav navbar-nav navbar-right">
 				<li id="liName"><a href="#')"><label id="lbName"
 						name="lbName" style="color: orange;">Name</label></a></li>
-			<li id="liRegister"><a id="menuRegister" name="menuRegister"
+				<li id="liRegister"><a id="menuRegister" name="menuRegister"
 					data-toggle="modal" data-target="#modalRegister" href="#"><label
 						name="lbRegister" id="lbRegister">Register</label></a></li>
 
@@ -35,11 +35,13 @@
 
 				<li id="liLogout"><a name="menuLogout" href="#"
 					onclick="Logout()">Logout</a></li>
-				<li id="liWriting"><a href="${pageContext.request.contextPath}/storyheader">Dream Writing</a></li>
+				<li id="liWriting"><a
+					href="${pageContext.request.contextPath}/storyheader">Dream
+						Writing</a></li>
+
 				<li class="dropdown"><a href="#" class="dropdown-toggle"
 					data-toggle="dropdown"> Style <b class="caret"></b>
-				</a>
-				<%-- <div class="row">
+				</a> <%-- <div class="row">
 								<div class="col-md-4">
 									<h2 class="text-center">Action</h2>
 									<c:forEach var="listAction" items="${listAction}">
@@ -79,13 +81,16 @@
 			               <li class = "divider"></li>
 			               <li><a href = "#">One more separated link</a></li> -->
 					</ul></li>
+				<li id="liCart"><a class="fa fa-shopping-cart fa-lg"
+					name="menuCart" href="#" onclick="Cart()"><label name="lbCart"
+						id="lbCart">(0)</label></a></li>
 
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
 	</div>
 	<!-- /.container-fluid --> </nav>
-	
+
 	<!-- Modal Register-->
 	<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog"
 		aria-labelledby="modalRegisterLabel">
@@ -156,7 +161,20 @@
 				document.getElementById("liLogout").children[0].style.display = "";
 				document.getElementById("liName").children[0].style.display = "";
 				document.getElementById("liWriting").children[0].style.display = "";
+				document.getElementById("liCart").children[0].style.display = "";
 				$("#lbName").text(username);
+				
+				$.ajax({
+				      url:'countcart',
+				      type:'POST',
+				      data:'',
+				      success : function(data){
+				    	  //alert(data);
+				         //int count = data.count;
+				      $("#lbCart").text("("+data+")");
+				      }
+				    });
+				
 			} else {
 				//alert(name);
 				document.getElementById("liRegister").children[0].style.display = " ";
@@ -164,6 +182,7 @@
 				document.getElementById("liLogout").children[0].style.display = "none";
 				document.getElementById("liName").children[0].style.display = "none";
 				document.getElementById("liWriting").children[0].style.display = "none";
+				document.getElementById("liCart").children[0].style.display = "none";
 			}
 		});
 				
@@ -178,7 +197,7 @@
 		      type:'POST',
 		      data:'',
 		      success : function(data){
-		          alert('Logout success');
+		          //alert('Logout success');
 		          window.location.href="home";
 		      }
 		    });
@@ -191,6 +210,7 @@
 		document.getElementById("liLogout").children[0].style.display = "none";
 		document.getElementById("liName").children[0].style.display = "none";
 		document.getElementById("liWriting").children[0].style.display = "none";
+		document.getElementById("liCart").children[0].style.display = "none";
 	}
 	
 	function FictionType(type) {
@@ -203,7 +223,17 @@
 		          window.location.href="fictiontype";
 		      }
 		    }); 
-	}			
+	}	
+	
+	function Cart(){
+		var member_id = '<%=session.getAttribute("member_id")%>';
+		if (member_id != "null") {
+			window.location.href="cart";
+		} else {
+			alert("Please login.");
+		}
+	}
+
 	</script>
 
 </body>

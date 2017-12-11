@@ -166,10 +166,16 @@ public class StoryDao {
 		try {
 			conn = ConnectionJDBC.getConnection();
 
-			pst = conn.prepareStatement(
-					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id  from story_header h inner join categories c on h.categories_id = c.categories_id "
-							+ "order by h.count_click desc LIMIT 1 ");
+//			pst = conn.prepareStatement(
+//					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id  from story_header h inner join categories c on h.categories_id = c.categories_id "
+//							+ "order by h.count_click desc LIMIT 1 ");
 
+			//(select count(*) from like_this where story_header_id = h.story_header_id) as count_like
+			pst = conn.prepareStatement(
+			"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id, "
+					+ "(select count(*) from like_this where story_header_id = h.story_header_id) as count_like "
+					+ " from story_header h inner join categories c on h.categories_id = c.categories_id " 
+					+ "order by count_like desc LIMIT 1 ");
 			rs = pst.executeQuery();
 			while (rs.next()) {
 				StoryHeaderModel tmp = new StoryHeaderModel();
@@ -225,8 +231,10 @@ public class StoryDao {
 			conn = ConnectionJDBC.getConnection();
 
 			pst = conn.prepareStatement(
-					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id  from story_header h inner join categories c on h.categories_id = c.categories_id "
-							+ "where h.categories_id= ? order by h.count_click desc LIMIT 1 ");
+					"select c.categories_name, h.member_id, h.story_header_content, h.story_header_id, h.story_header_img, h.story_header_name, h.story_header_price, h.categories_id, "
+							+ "(select count(*) from like_this where story_header_id = h.story_header_id) as count_like "
+							+ "from story_header h inner join categories c on h.categories_id = c.categories_id "
+							+ "where h.categories_id= ? order by count_like desc LIMIT 1 ");
 			pst.setInt(1, categories_id);
 
 			rs = pst.executeQuery();
@@ -273,7 +281,7 @@ public class StoryDao {
 		return storyheadermodel;
 	}
 	
-	public static List<StoryChapterModel> QueryStoryChapter(String storyHeaderId) {
+	public static List<StoryChapterModel> QueryStoryChapter(String storyHeaderId, int memberId) {
 
 		List<StoryChapterModel> storyChapterModel = new ArrayList<StoryChapterModel>();
 		Connection conn = null;
@@ -286,7 +294,8 @@ public class StoryDao {
 			pst = conn.prepareStatement("SELECT d.story_header_id, " + "h.story_header_name, "
 					+ "h.story_header_content, " + "h.story_header_img, " + "h.story_header_price, "
 					+ "d.story_detail_act, " + "d.story_detail_id, " + "d.story_detail_content, " + "h.member_id, "
-				    + "(select count(*) from payment where story_header_id = h.story_header_id and  member_id = 2 and payment_confirm = 1) as payment "
+				    + "(select count(*) from payment where story_detail_id = d.story_detail_id and  member_id = "+memberId+") as payment, "
+				    + "(select count(*) from payment where story_detail_id = d.story_detail_id and  member_id = "+memberId+" and payment_confirm = 1) as payment_confirm "
 					+ "FROM story_detail d left outer join story_header h on d.story_header_id = h.story_header_id "
 					+ "WHERE d.story_header_id = ? " + "order by d.story_detail_id");
 			pst.setInt(1, Integer.parseInt(storyHeaderId));
@@ -304,6 +313,7 @@ public class StoryDao {
 				tmp.setStory_detail_content(rs.getString("story_detail_content").replaceAll("\n", ""));
 				tmp.setMember_id(rs.getInt("member_id"));
 				tmp.setPayment(rs.getInt("payment"));
+				tmp.setPayment_confirm(rs.getInt("payment_confirm"));
 
 				storyChapterModel.add(tmp);
 			}
@@ -609,5 +619,5 @@ public class StoryDao {
 		}
 		return ret;
 	}
-
+	
 }

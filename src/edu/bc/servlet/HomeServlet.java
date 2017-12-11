@@ -1,6 +1,7 @@
 package edu.bc.servlet;
 
 import java.io.IOException;
+
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import edu.bc.dao.StoryDao;
+import edu.bc.model.StoryChapterModel;
 import edu.bc.model.StoryHeaderModel;
  
 
@@ -51,7 +53,7 @@ public class HomeServlet extends HttpServlet {
 		request.setAttribute("listActionTop", listActionTop);
 		request.setAttribute("listDramaTop", listDramaTop);
 		request.setAttribute("listHorrorTop", listHorrorTop);
-	  	
+		
 		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/index.jsp");
 		dispatcher.forward(request, response);
 	   	 

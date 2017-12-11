@@ -164,7 +164,47 @@
 		<servlet-name>likethisservlet</servlet-name>
 		<url-pattern>/LikeThisServlet</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>paymentservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.PaymentServlet</servlet-class>
+	</servlet>
 
+	<servlet-mapping>
+		<servlet-name>paymentservlet</servlet-name>
+		<url-pattern>/PaymentServlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>countcartservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.CountCartServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>countcartservlet</servlet-name>
+		<url-pattern>/CountCartServlet</url-pattern>
+	</servlet-mapping>
+	
+	 <servlet>
+		<servlet-name>cartservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.CartServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>cartservlet</servlet-name>
+		<url-pattern>/CartServlet</url-pattern>
+	</servlet-mapping>
+	
+		 <servlet>
+		<servlet-name>deletecartservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.DeleteCartServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>deletecartservlet</servlet-name>
+		<url-pattern>/DeleteCartServlet</url-pattern>
+	</servlet-mapping>
+	
 	<welcome-file-list>
 
 		<welcome-file>home</welcome-file>

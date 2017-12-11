@@ -12,6 +12,7 @@ public class StoryChapterModel {
 	String story_detail_act;
 	String story_detail_content;
 	int payment;
+	int payment_confirm;
 
 	public int getPayment() {
 		return payment;
@@ -91,6 +92,14 @@ public class StoryChapterModel {
 
 	public void setStory_detail_content(String story_detail_content) {
 		this.story_detail_content = story_detail_content;
+	}
+
+	public int getPayment_confirm() {
+		return payment_confirm;
+	}
+
+	public void setPayment_confirm(int payment_confirm) {
+		this.payment_confirm = payment_confirm;
 	}
 
 }
