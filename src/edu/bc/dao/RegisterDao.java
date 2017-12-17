@@ -34,6 +34,14 @@ public class RegisterDao {
 				return ret;
 			}
 			
+			pst = conn.prepareStatement(
+					" SELECT * FROM member WHERE pesudonym = ?");
+			pst.setString(1, register.getPesudonym());
+			rs = pst.executeQuery();			
+			while (rs.next()) {
+				return ret;
+			}
+			
 			strUser = "insert into user(username, password) values('"+register.getUsername()+"', '"+register.getPassword()+"')";
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 

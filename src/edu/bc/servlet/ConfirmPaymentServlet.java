@@ -29,8 +29,10 @@ public class ConfirmPaymentServlet extends HttpServlet {
 			HttpSession session = request.getSession(false);
 			//int memberId = (int)session.getAttribute("member_id");
 
-			int paymentId = Integer.parseInt(request.getParameter("paymentId"));			
-			boolean status = PaymentDao.UpdateConfirmPayment(paymentId);
+			int paymentId = Integer.parseInt(request.getParameter("paymentId"));		
+			String type = request.getParameter("type");	
+			boolean status = status = PaymentDao.UpdateConfirmPayment(paymentId, type);
+	
 			if (status) {				
 				response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/admin");
 				return;

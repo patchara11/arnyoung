@@ -353,7 +353,7 @@ public class PaymentDao {
 		return ret;
 	}
 
-	public static boolean UpdateConfirmPayment(int paymentId) {
+	public static boolean UpdateConfirmPayment(int paymentId, String type) {
 		boolean ret = false;
 		Connection conn = null;
 		String strUser = "";
@@ -363,8 +363,14 @@ public class PaymentDao {
 		try {
 			conn = ConnectionJDBC.getConnection();
 			Statement stmt = conn.createStatement();
-			strUser = "update payment set payment_confirm = 1 "
-					+ " where payment_id = "+ paymentId;
+			if("confirm".equals(type)) {
+				strUser = "update payment set payment_confirm = 1 "
+						+ " where payment_id = "+ paymentId;
+			}else {
+				strUser = "update payment set slip = NULL, truemoney = NULL "
+						+ " where payment_id = "+ paymentId;
+			}
+	
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 			ret = true;
 		} catch (Exception e) {
