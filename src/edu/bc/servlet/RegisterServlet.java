@@ -40,10 +40,9 @@ public class RegisterServlet extends HttpServlet {
 		if (RegisterDao.validate(register)) {
 			
 			
-			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(response.encodeRedirectURL(request.getContextPath()) + "/home");
 		} else {
-			out.print("<p style=\"color:red\">Sorry username or password error</p>");
+			out.print("<p style=\"color:red\">Sorry username already use.</p>");
 
 			RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 //			out = response.getWriter();  

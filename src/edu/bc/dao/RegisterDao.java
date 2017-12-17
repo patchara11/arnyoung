@@ -19,11 +19,21 @@ public class RegisterDao {
 		PreparedStatement pstMember = null;
 		ResultSet rs = null;
 		int userId = 0;
+		PreparedStatement pst = null;
 		
 
 		try {
 			conn = ConnectionJDBC.getConnection();
 			Statement stmt = conn.createStatement();
+			
+			pst = conn.prepareStatement(
+					" SELECT * FROM user WHERE username = ? ");
+			pst.setString(1, register.getUsername());
+			rs = pst.executeQuery();			
+			while (rs.next()) {
+				return ret;
+			}
+			
 			strUser = "insert into user(username, password) values('"+register.getUsername()+"', '"+register.getPassword()+"')";
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 

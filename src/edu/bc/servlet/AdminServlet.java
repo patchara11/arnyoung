@@ -17,13 +17,14 @@ import edu.bc.model.CategoriesModel;
 import edu.bc.model.StoryChapterModel;
 import edu.bc.model.StoryHeaderModel;
 import edu.bc.dao.CategoriesDao;
+import edu.bc.dao.PaymentDao;
 import edu.bc.dao.StoryDao;
 
-@WebServlet(urlPatterns = { "/storychapter" })
-public class StoryChapterServlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/admin" })
+public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public StoryChapterServlet() {
+	public AdminServlet() {
 		super();
 	}
 
@@ -35,24 +36,19 @@ public class StoryChapterServlet extends HttpServlet {
 
 		String errorString = null;
 		List<StoryChapterModel> list = null;
-		int memberId = 0;
-
-		//int story_header_id = Integer.parseInt(request.getParameter("storyHeaderId"));
-		String storyHeaderId = (String)session.getAttribute("storyHeaderId");
-		String storyHeaderName = (String)session.getAttribute("storyHeaderName");
-		String storyHeaderImg = (String)session.getAttribute("storyHeaderImg");
-		String storyHeaderContent = (String)session.getAttribute("storyHeaderContent");
+        Double totalPrice = 0.00;
 		
-		if(session.getAttribute("member_id") != null) {
-			memberId = (int)session.getAttribute("member_id");
-		}
+		//int memberId = (int)session.getAttribute("member_id");
 		
-		list = StoryDao.QueryStoryChapter(storyHeaderId, memberId);
+		list = PaymentDao.QueryConfirmPayment();
 		// Store info in request attribute, before forward to views
-
-		request.setAttribute("storyname", storyHeaderName);
-		request.setAttribute("storycontent", storyHeaderContent);
-		request.setAttribute("storyimg", storyHeaderImg);
+//        for (StoryChapterModel item : list) {
+//          	totalPrice += item.getStory_header_price();
+//		}
+		
+//		request.setAttribute("totalPrice", totalPrice);
+//		request.setAttribute("storycontent", "");
+//		request.setAttribute("storyimg", "");
 		
 		if(list.size() > 0) {
 			request.setAttribute("errorString", errorString);
@@ -61,7 +57,7 @@ public class StoryChapterServlet extends HttpServlet {
 		
 
 		// Forward to /WEB-INF/views/productListView.jsp
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/storychapter.jsp");
+		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/admin.jsp");
 		dispatcher.forward(request, response);
 	}
 

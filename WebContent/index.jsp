@@ -82,7 +82,13 @@
 						<!-- Content Row -->
 						<div class="row">
 							<div class="col-md-4 center">
-								<h2 class="text-center">Action (HOT)</h2>
+								<div class="row">
+									<h2 class="text-right col-md-6">Action</h2>
+									<img id="imgSH" name="imgSH"
+										src="http://localhost:8080/arnyoung/images/big_fire.gif"
+										atl="Mountain View" class="col-md-6"
+										style="width: 90px; height: 52px;">
+								</div>
 								<c:forEach var="listActionTop" items="${listActionTop}">
 									<div class="cols-md-12 text-center">
 										<img id="imgSH" name="imgSH"
@@ -99,7 +105,13 @@
 							</div>
 							<!-- /.col-md-4 -->
 							<div class="col-md-4">
-								<h2 class="text-center">Drama (HOT)</h2>
+								<div class="row">
+									<h2 class="text-right col-md-6">Drama</h2>
+									<img id="imgSH" name="imgSH"
+										src="http://localhost:8080/arnyoung/images/big_fire.gif"
+										atl="Mountain View" class="col-md-6"
+										style="width: 90px; height: 52px;">
+								</div>
 								<c:forEach var="listDramaTop" items="${listDramaTop}">
 									<div class="cols-md-12 text-center">
 										<img id="imgSH" name="imgSH"
@@ -108,7 +120,7 @@
 											atl="Mountain View" class="img-responsive center-block"
 											style="width: 100px; height: 100px;"> <a
 											class="center-block" href="#"
-											onclick="LinkSCHAP(${listDramaTop.story_header_id}, 'ActionHOT')">${listDramaTop.story_header_name}</a>
+											onclick="LinkSCHAP(${listDramaTop.story_header_id}, 'DramaHOT')">${listDramaTop.story_header_name}</a>
 										<label class="">${listDramaTop.story_header_content}</label>
 									</div>
 								</c:forEach>
@@ -116,7 +128,13 @@
 							</div>
 							<!-- /.col-md-4 -->
 							<div class="col-md-4">
-								<h2 class="text-center">Horror (HOT)</h2>
+								<div class="row">
+									<h2 class="text-right col-md-6">Horror</h2>
+									<img id="imgSH" name="imgSH"
+										src="http://localhost:8080/arnyoung/images/big_fire.gif"
+										atl="Mountain View" class="col-md-6"
+										style="width: 90px; height: 52px;">
+								</div>
 								<c:forEach var="listHorrorTop" items="${listHorrorTop}">
 									<div class="cols-md-12 text-center">
 										<img id="imgSH" name="imgSH"
@@ -125,7 +143,7 @@
 											atl="Mountain View" class="img-responsive center-block"
 											style="width: 100px; height: 100px;"> <a
 											class="center-block" href="#"
-											onclick="LinkSCHAP(${listHorrorTop.story_header_id}, 'ActionHOT')">${listHorrorTop.story_header_name}</a>
+											onclick="LinkSCHAP(${listHorrorTop.story_header_id}, 'HorrorHOT')">${listHorrorTop.story_header_name}</a>
 										<label class="">${listHorrorTop.story_header_content}</label>
 									</div>
 
@@ -256,7 +274,8 @@
 
 			}
 			
-			function LinkSCHAP(story_header_id, strTop) {		
+			function LinkSCHAP(story_header_id, strTop) {	
+               // alert(strTop);
 				storyHeaderId = story_header_id;
 				
 				var storyHeaderName = "";
@@ -303,6 +322,7 @@
 			           	linkMemberId =  '${item.member_id}';
 			            }
 		            </c:forEach>
+		            //alert(storyHeaderImg);
 				    break;
 				case 'HorrorHOT':
 					<c:forEach var="item" items="${listHorrorTop}" varStatus="status">

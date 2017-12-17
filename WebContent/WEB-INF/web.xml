@@ -134,7 +134,7 @@
 		<servlet-name>storycontentservlet</servlet-name>
 		<url-pattern>/StoryContentServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>fictiontypeservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.FictionTypeServlet</servlet-class>
@@ -144,7 +144,7 @@
 		<servlet-name>fictiontypeservlet</servlet-name>
 		<url-pattern>/FictionTypeServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>categoriesnameservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.CategoriesNameServlet</servlet-class>
@@ -154,7 +154,7 @@
 		<servlet-name>categoriesnameservlet</servlet-name>
 		<url-pattern>/CategoriesNameServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>likethisservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.LikeThisServlet</servlet-class>
@@ -164,7 +164,7 @@
 		<servlet-name>likethisservlet</servlet-name>
 		<url-pattern>/LikeThisServlet</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>paymentservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.PaymentServlet</servlet-class>
@@ -184,8 +184,8 @@
 		<servlet-name>countcartservlet</servlet-name>
 		<url-pattern>/CountCartServlet</url-pattern>
 	</servlet-mapping>
-	
-	 <servlet>
+
+	<servlet>
 		<servlet-name>cartservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.CartServlet</servlet-class>
 	</servlet>
@@ -194,8 +194,8 @@
 		<servlet-name>cartservlet</servlet-name>
 		<url-pattern>/CartServlet</url-pattern>
 	</servlet-mapping>
-	
-		 <servlet>
+
+	<servlet>
 		<servlet-name>deletecartservlet</servlet-name>
 		<servlet-class>edu.bc.servlet.DeleteCartServlet</servlet-class>
 	</servlet>
@@ -204,9 +204,28 @@
 		<servlet-name>deletecartservlet</servlet-name>
 		<url-pattern>/DeleteCartServlet</url-pattern>
 	</servlet-mapping>
-	
-	<welcome-file-list>
 
+	<servlet>
+		<servlet-name>adminservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.AdminServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>adminservlet</servlet-name>
+		<url-pattern>/Adminservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>confirmpaymentservlet</servlet-name>
+		<servlet-class>edu.bc.servlet.ConfirmPaymentServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>confirmpaymentservlet</servlet-name>
+		<url-pattern>/ConfirmPaymentServlet</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
 		<welcome-file>home</welcome-file>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>

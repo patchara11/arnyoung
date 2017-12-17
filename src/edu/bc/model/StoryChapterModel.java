@@ -13,6 +13,18 @@ public class StoryChapterModel {
 	String story_detail_content;
 	int payment;
 	int payment_confirm;
+	String slip;
+	String truemoney;
+	String timestamp;	
+	int payment_id;
+	
+	public int getPayment_id() {
+		return payment_id;
+	}
+
+	public void setPayment_id(int payment_id) {
+		this.payment_id = payment_id;
+	}
 
 	public int getPayment() {
 		return payment;
@@ -100,6 +112,30 @@ public class StoryChapterModel {
 
 	public void setPayment_confirm(int payment_confirm) {
 		this.payment_confirm = payment_confirm;
+	}
+
+	public String getSlip() {
+		return slip;
+	}
+
+	public void setSlip(String slip) {
+		this.slip = slip;
+	}
+
+	public String getTruemoney() {
+		return truemoney;
+	}
+
+	public void setTruemoney(String trumoney) {
+		this.truemoney = trumoney;
+	}
+
+	public String getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(String timestamp) {
+		this.timestamp = timestamp;
 	}
 
 }

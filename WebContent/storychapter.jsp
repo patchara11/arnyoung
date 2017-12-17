@@ -51,7 +51,7 @@
 							<tr>
 								<th class="text-center">Act</th>
 								<th>Chapter name</th>
-								<th>Price</th>
+								<th>Price (Baht)</th>
 								<th class="thBuy">Buy</th>
 								<th class="btn-group pull-right thEditDelete">Edit & Delete</th>
 							</tr>
@@ -325,6 +325,7 @@
 			var storyDetailContent = "";
 			var paymentConfirm = 0;
 			var payment = 0;
+			var price = 0;
 			 //storyDetailName = '${item.story_detail_name}';
          	  //storyDetailContent = '${item.story_detail_content}';
          	  
@@ -343,15 +344,17 @@
 	           	   
 	           	   paymentConfirm =  '${item.payment_confirm}';
 	           	   payment =  '${item.payment}';
+	           	   price ='${item.story_header_price}';
 	            }
             </c:forEach>
 			//sessionStorage.setItem("storyHeaderId", storyHeaderId);
 			
 			//sessionStorage.story_header_id = storyHeaderId;
 			//alert(sessionStorage.story_header_id);
-			
             var member_id = '<%=session.getAttribute("member_id")%>';
-			if(linkMemberId == member_id){
+           // alert(member_id +' '+linkMemberId);
+           if(member_id != "null"){
+   			if(linkMemberId == member_id){
 				$.ajax({
 				      url:'storyheaderid',
 				      type:'POST',
@@ -364,7 +367,7 @@
 				      }
 				    });  
 			}else{
-				if(paymentConfirm > 0){
+				if(paymentConfirm > 0 || price == 0){
 					//alert(paymentConfirm);
 					$.ajax({
 					      url:'storyheaderid',
@@ -386,6 +389,9 @@
 					
 				}
 			}
+           }else{
+        	  	 alert("Plese login.");
+           }
 			    
 			 
 			  //window.location = "storychapter.jsp?story_header_id="+storyHeaderId; */

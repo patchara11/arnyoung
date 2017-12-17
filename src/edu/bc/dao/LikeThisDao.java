@@ -65,7 +65,7 @@ public class LikeThisDao {
 		try {
 			conn = ConnectionJDBC.getConnection();
 			Statement stmt = conn.createStatement();
-			strUser = "delete from like_this where member_id = "+ likethismodel.getMember_id()+ " ";
+			strUser = "delete from like_this where member_id = "+ likethismodel.getMember_id()+ " and story_header_id = "+likethismodel.getStory_header_id();
 			stmt.executeUpdate(strUser, Statement.RETURN_GENERATED_KEYS);
 			ret = true;
 		} catch (Exception e) {

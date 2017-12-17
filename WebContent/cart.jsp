@@ -30,7 +30,7 @@
 							<tr>
 								<th class="text-center">No.</th>
 								<th>Chapter name</th>
-								<th>Price</th>
+								<th>Price (Baht)</th>
 								<th class="btn-group pull-right thEditDelete">Remove</th>
 							</tr>
 						</thead>
@@ -44,53 +44,65 @@
 									<td class="tdEditDelete"><div class="btn-group pull-right">
 											<button type="button" class="btn btn-danger"
 												style="width: 100px;"
-												onclick="ConfirmDelSH(${story_h.story_detail_id})">Remove</button>
-									</td>
+												onclick="ConfirmDelSH(${story_h.story_detail_id})">Remove</button></td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
-                     
-                     <div class="row">
-                        <div class="col-md-12 text-right pull-right">
-                           <label>Total price </label><span style="color: orange">${totalPrice}</span><label> Baht</label>
-                        </div>
-                     </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="modalAddStoryHeader" tabindex="-1"
-		role="dialog" aria-labelledby="modalAddStoryHeader">
-		<div class="modal-dialog" role="document" style="width: 90%;">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					<h4 class="modal-title" id="modalAddStoryHeader">Add story
-						header</h4>
-				</div>
-				<div class="modal-body">
 					<div class="row">
-						<div class="col-md-12">
-							<%@ include file="addstorychapter.jsp"%>
-
-
+						<div class="col-md-12 text-right pull-right"
+							style="font-size: 20px;">
+							<label>Total price </label><span style="color: orange;">
+								${totalPrice} </span><label> Baht</label>
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
+					<div class="form-group text-center">
+						<div class="cols-sm-12" style="margin-top: 50px;">
+							<img id="imgSH" name="imgSH"
+								src="http://localhost:8080/arnyoung/images/bank.png"
+								atl="Mountain View" class="text-center"
+								style="width: 80%; height: 500px;">
+						</div>
+						<br>
+					</div>
+
+					<form class="" method="post" action="addpqyment"
+						enctype="multipart/form-data" accept-charset="UTF-8">
+						<div class="row text-center center">
+							<label for="name" class="cols-md-12 control-label">Payment
+								slip upload</label>
+						</div>
+						<div class="row text-center center">
+							<input type="file" id="fileField" name="fileField"
+								style="margin: auto;" class="text-center center" />
+						</div>
+
+						<div class="row text-center center" style="margin-top: 20px;">
+							<label for="name" class="cols-md-12 control-label">True
+								money code</label>
+						</div>
+						<div class="row text-center center">
+							<input type="number" id="txtTrueMoney" name="txtTrueMoney"
+								style="margin: auto;" class="text-center center"
+								oninput="maxLengthCheck(this)" type="number" maxlength="14"
+								min="0" max="99999999999999" />
+						</div>
+
+						<div class="row">
+							<div class="col-md-12 text-center center"
+								style="margin-top: 50px;">
+								<input type="submit" class="btn btn-success text-center center"
+									value="Confirm payment" />
+							</div>
+						</div>
+					</form>
 				</div>
+
 			</div>
 		</div>
 	</div>
-
 
 	<!-- <button class="btn btn-default" id="btn-confirm">Confirm</button> -->
 
@@ -103,8 +115,7 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="myModalLabel">Your story will be
-						lost and can't backup again!!!</h4>
+					<h4 class="modal-title" id="myModalLabel">Your book will out of cart.</h4>
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-danger" id="modal-btn-si">Accept</button>
@@ -164,9 +175,15 @@
 			}
 		});
 		
-			
-	</script>
+		  // This is an old version, for a more recent version look at
+		  // https://jsfiddle.net/DRSDavidSoft/zb4ft1qq/2/
+		  function maxLengthCheck(object)
+		  {
+		    if (object.value.length > object.maxLength)
+		      object.value = object.value.slice(0, object.maxLength)
+		  }
 
+	</script>
 </body>
 </html>
 

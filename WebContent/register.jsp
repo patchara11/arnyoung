@@ -12,7 +12,7 @@
 						<span class="input-group-addon"><i
 							class="fa fa-user-circle" aria-hidden="true"></i></span> <input
 							type="text" class="form-control" name="username" id="username"
-							placeholder="Enter your username" />
+							placeholder="Enter your username"  required="required" />
 					</div>
 				</div>
 			</div>
@@ -24,7 +24,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-lock fa-lg"
 							aria-hidden="true"></i></span> <input type="password" class="form-control"
-							name="password" id="password" placeholder="Enter your password" />
+							name="password" id="password" placeholder="Enter your password" required="required" />
 					</div>
 				</div>
 			</div>
@@ -36,7 +36,7 @@
 						<span class="input-group-addon"><i
 							class="fa fa-pencil-square-o " aria-hidden="true"></i></span> <input
 							type="text" class="form-control" name="first_name"
-							id="first_name" placeholder="Enter your First name" />
+							id="first_name" placeholder="Enter your First name"  required="required" />
 					</div>
 				</div>
 			</div>
@@ -48,7 +48,7 @@
 						<span class="input-group-addon"><i
 							class="fa fa-pencil-square-o " aria-hidden="true"></i></span> <input
 							type="text" class="form-control" name="last_name"
-							id="Last name" placeholder="Enter your last_name" />
+							id="Last name" placeholder="Enter your last_name"  required="required"  />
 					</div>
 				</div>
 			</div>
@@ -59,7 +59,7 @@
 					<div class="input-group">
 						<span class="input-group-addon"><i class="fa fa-envelope-o"
 							aria-hidden="true"></i></span> <input type="email" class="form-control"
-							name="email" id="email" placeholder="Enter your email" />
+							name="email" id="email" placeholder="Enter your email"  required="required"  />
 					</div>
 				</div>
 			</div>
@@ -71,7 +71,7 @@
 						<span class="input-group-addon"><i
 							class="fa fa-mobile fa-lg" aria-hidden="true"></i></span> <input
 							type="mobile" class="form-control" name="mobile" id="mobile"
-							placeholder="Enter your mobile" />
+							placeholder="Enter your mobile"  required="required"  />
 					</div>
 				</div>
 			</div>
@@ -83,7 +83,7 @@
 						<span class="input-group-addon"><i class="fa fa-pencil"
 							aria-hidden="true"></i></span> <input type="Pesudonym"
 							class="form-control" name="pesudonym" id="pesudonym"
-							placeholder="Enter your Pesudonym" />
+							placeholder="Enter your Pesudonym"  required="required"  />
 					</div>
 				</div>
 			</div>

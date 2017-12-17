@@ -85,6 +85,10 @@
 					name="menuCart" href="#" onclick="Cart()"><label name="lbCart"
 						id="lbCart">(0)</label></a></li>
 
+				<li id="liAdmin"><a class="g" name="menuAdmin" href="${pageContext.request.contextPath}/admin"
+					onclick=""><label name="lbAdmin" id=""lbAdmin"">Admin
+							management</label></a></li>
+
 			</ul>
 		</div>
 		<!-- /.navbar-collapse -->
@@ -155,6 +159,9 @@
 		//alert("menuLogout");
 		var username = '<%=session.getAttribute("username")%>' ;
 			//alert(username);
+			if(username != "admin"){
+				document.getElementById("liAdmin").children[0].style.display = "none";
+			}
 			if (name != null && "null" != username) {
 				document.getElementById("liLogin").children[0].style.display = "none";
 				document.getElementById("liRegister").children[0].style.display = "none";
@@ -163,6 +170,8 @@
 				document.getElementById("liWriting").children[0].style.display = "";
 				document.getElementById("liCart").children[0].style.display = "";
 				$("#lbName").text(username);
+				//alert(username);
+				
 				
 				$.ajax({
 				      url:'countcart',
